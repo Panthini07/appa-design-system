@@ -11,9 +11,10 @@
   .mode-note{font-size:13px;color:#888;margin-bottom:16px;}
   h3{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#888;margin:24px 0 12px;font-weight:600;}
   h3 .lt{text-transform:none;letter-spacing:0;font-weight:400;color:#777;}
+  h3 .ct{text-transform:none;letter-spacing:0;font-weight:600;color:#666;float:right;}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:14px;}
   .sw{border-radius:10px;overflow:hidden;background:#1c1f26;box-shadow:0 1px 3px rgba(0,0,0,.4);}
-  .chip{height:84px;display:flex;align-items:flex-end;justify-content:flex-end;padding:6px 8px;}
+  .chip{height:84px;display:flex;align-items:flex-end;justify-content:flex-end;padding:6px 8px;border:1px solid rgba(255,255,255,.06);border-bottom:none;}
   .chip.big{height:108px;}
   .chip span{font-size:10px;padding:1px 5px;border-radius:4px;background:rgba(0,0,0,.35);color:#fff;}
   .meta{padding:9px 11px 11px;}
@@ -29,7 +30,7 @@
 <h1>Appa — Brand Color System</h1>
 <div class="sub">Teal-led · pink accent · semantics built from the palette · light + dark</div>
 <div class="hierarchy">Hierarchy: <b style="color:#11D2CB">teal = primary</b> (most surface area) → <b style="color:#FF4D97">pink = accent</b> (sparingly). Orange &amp; periwinkle carry the <b>semantic</b> states.</div>
-<div class="note">Every role uses the <b>same token name in both modes</b> — a true 1-to-1 light/dark swap. Each token has one light value and one dark value.</div>
+<div class="note">Every section is a <b>1-to-1 swap</b>: same token names and same count in both modes. Primary 4 · Accent 3 · Neutrals 4 · Text 2 · Semantic 4.</div>
 
 <h2>🌈 Signature gradient</h2>
 <div class="grad" style="background:linear-gradient(120deg,#11D2CB 0%,#8FE9E2 30%,#FFE3EF 55%,#FF8FC2 80%,#FF4D97 100%);"></div>
@@ -39,7 +40,7 @@
 <h2>☀️ Light Mode</h2>
 <div class="mode-note">Cool luminous white base; teal carries the UI, pink punctuates.</div>
 
-<h3>Primary <span class="lt">— teal family</span></h3>
+<h3>Primary <span class="lt">— teal family</span><span class="ct">4 tokens</span></h3>
 <div class="grid">
   <div class="sw"><div class="chip big" style="background:#11D2CB"><span>#11D2CB</span></div><div class="meta"><div class="token">primary</div><div class="role">Primary Teal</div><div class="hex">#11D2CB</div><div class="use">The hero — buttons, nav, brand, most UI</div></div></div>
   <div class="sw"><div class="chip big" style="background:#5FE6DF"><span>#5FE6DF</span></div><div class="meta"><div class="token">primary-bright</div><div class="role">Teal bright</div><div class="hex">#5FE6DF</div><div class="use">Optimistic highlights, light fills</div></div></div>
@@ -47,23 +48,28 @@
   <div class="sw"><div class="chip big" style="background:#DDF9F7"><span>#DDF9F7</span></div><div class="meta"><div class="token">primary-tint</div><div class="role">Teal tint</div><div class="hex">#DDF9F7</div><div class="use">Selected rows, soft surfaces</div></div></div>
 </div>
 
-<h3>Accent <span class="lt">— pink</span></h3>
+<h3>Accent <span class="lt">— pink</span><span class="ct">3 tokens</span></h3>
 <div class="grid">
   <div class="sw"><div class="chip" style="background:#FF4D97"><span>#FF4D97</span></div><div class="meta"><div class="token">accent</div><div class="role">Accent Pink</div><div class="hex">#FF4D97</div><div class="use">Fill — highlights, streaks, ONE key CTA per view</div></div></div>
   <div class="sw"><div class="chip" style="background:#E0357F"><span>#E0357F</span></div><div class="meta"><div class="token">accent-text</div><div class="role">Pink text-safe</div><div class="hex">#E0357F</div><div class="use">Small pink text / links</div></div></div>
+  <div class="sw"><div class="chip" style="background:#FFE3EF"><span>#FFE3EF</span></div><div class="meta"><div class="token">accent-tint</div><div class="role">Pink tint</div><div class="hex">#FFE3EF</div><div class="use">Pink badges, selected / soft backgrounds</div></div></div>
 </div>
 
-<h3>Neutrals &amp; Text</h3>
+<h3>Neutrals<span class="ct">4 tokens</span></h3>
 <div class="grid">
-  <div class="sw"><div class="chip" style="background:#F6F9FF"><span>#F6F9FF</span></div><div class="meta"><div class="token">bg</div><div class="role">Background</div><div class="hex">#F6F9FF</div><div class="use">Cool luminous white canvas</div></div></div>
-  <div class="sw"><div class="chip" style="background:#FFFFFF"><span>#FFFFFF</span></div><div class="meta"><div class="token">surface</div><div class="role">Surface</div><div class="hex">#FFFFFF</div><div class="use">Cards / elevated surfaces</div></div></div>
-  <div class="sw"><div class="chip" style="background:#FFFFFF"><span>#FFFFFF</span></div><div class="meta"><div class="token">surface-raised</div><div class="role">Surface raised</div><div class="hex">#FFFFFF</div><div class="use">Panels, dialogs (depth via shadow in light)</div></div></div>
+  <div class="sw"><div class="chip" style="background:#F6F9FF"><span>#F6F9FF</span></div><div class="meta"><div class="token">bg</div><div class="role">Background</div><div class="hex">#F6F9FF</div><div class="use">Cool luminous canvas (recessed)</div></div></div>
+  <div class="sw"><div class="chip" style="background:#FBFDFF"><span>#FBFDFF</span></div><div class="meta"><div class="token">surface</div><div class="role">Surface</div><div class="hex">#FBFDFF</div><div class="use">Cards, base panels</div></div></div>
+  <div class="sw"><div class="chip" style="background:#FFFFFF"><span>#FFFFFF</span></div><div class="meta"><div class="token">surface-raised</div><div class="role">Surface raised</div><div class="hex">#FFFFFF</div><div class="use">Dialogs, popovers (top tier)</div></div></div>
   <div class="sw"><div class="chip" style="background:#E6EAF2"><span>#E6EAF2</span></div><div class="meta"><div class="token">border</div><div class="role">Border</div><div class="hex">#E6EAF2</div><div class="use">Dividers, outlines</div></div></div>
-  <div class="sw"><div class="chip" style="background:#16181C"><span>#16181C</span></div><div class="meta"><div class="token">text</div><div class="role">Text (near-black)</div><div class="hex">#16181C</div><div class="use">Body ink</div></div></div>
-  <div class="sw"><div class="chip" style="background:#5C6470"><span>#5C6470</span></div><div class="meta"><div class="token">text-muted</div><div class="role">Text muted</div><div class="hex">#5C6470</div><div class="use">Captions, metadata</div></div></div>
 </div>
 
-<h3>Semantic <span class="lt">— drawn from the palette</span></h3>
+<h3>Text<span class="ct">2 tokens</span></h3>
+<div class="grid">
+  <div class="sw"><div class="chip" style="background:#16181C"><span>#16181C</span></div><div class="meta"><div class="token">text</div><div class="role">Text (near-black)</div><div class="hex">#16181C</div><div class="use">Body ink, headings</div></div></div>
+  <div class="sw"><div class="chip" style="background:#5C6470"><span>#5C6470</span></div><div class="meta"><div class="token">text-muted</div><div class="role">Text muted</div><div class="hex">#5C6470</div><div class="use">Captions, metadata, placeholders</div></div></div>
+</div>
+
+<h3>Semantic <span class="lt">— drawn from the palette</span><span class="ct">4 tokens</span></h3>
 <div class="grid">
   <div class="sw"><div class="chip" style="background:#14D49A"><span>#14D49A</span></div><div class="meta"><div class="token">success</div><div class="role">Success</div><div class="hex">#14D49A</div><div class="use">Done / on-track (bright teal-green)</div></div></div>
   <div class="sw"><div class="chip" style="background:#FF8A3D"><span>#FF8A3D</span></div><div class="meta"><div class="token">warning</div><div class="role">Warning</div><div class="hex">#FF8A3D</div><div class="use">Due soon (orange)</div></div></div>
@@ -73,10 +79,10 @@
 
 <!-- DARK -->
 <h2>🌙 Dark Mode</h2>
-<div class="mode-note">Same token names, brightened to glow on near-black.</div>
+<div class="mode-note">Same token names and counts, brightened to glow on near-black.</div>
 <div class="grad" style="background:radial-gradient(circle at 26% 36%,#11D2CB55,transparent 60%),linear-gradient(120deg,#2DE3DA 0%,#7DEDE6 28%,#FFD0E6 54%,#FF8FC2 80%,#FF5FA6 100%);"></div>
 
-<h3>Primary <span class="lt">— teal family</span></h3>
+<h3>Primary <span class="lt">— teal family</span><span class="ct">4 tokens</span></h3>
 <div class="grid">
   <div class="sw"><div class="chip big" style="background:#2DE3DA"><span>#2DE3DA</span></div><div class="meta"><div class="token">primary</div><div class="role">Primary Cyan</div><div class="hex">#2DE3DA</div><div class="use">The hero — buttons, nav, brand</div></div></div>
   <div class="sw"><div class="chip big" style="background:#5FF0E8"><span>#5FF0E8</span></div><div class="meta"><div class="token">primary-bright</div><div class="role">Cyan bright</div><div class="hex">#5FF0E8</div><div class="use">Optimistic highlights, glow</div></div></div>
@@ -84,23 +90,28 @@
   <div class="sw"><div class="chip big" style="background:#0C2E33"><span>#0C2E33</span></div><div class="meta"><div class="token">primary-tint</div><div class="role">Cyan tint</div><div class="hex">#0C2E33</div><div class="use">Selected rows, soft surfaces</div></div></div>
 </div>
 
-<h3>Accent <span class="lt">— pink</span></h3>
+<h3>Accent <span class="lt">— pink</span><span class="ct">3 tokens</span></h3>
 <div class="grid">
   <div class="sw"><div class="chip" style="background:#FF5FA6"><span>#FF5FA6</span></div><div class="meta"><div class="token">accent</div><div class="role">Accent Pink</div><div class="hex">#FF5FA6</div><div class="use">Fill — highlights, streaks, key CTA</div></div></div>
   <div class="sw"><div class="chip" style="background:#FF85BC"><span>#FF85BC</span></div><div class="meta"><div class="token">accent-text</div><div class="role">Pink text-safe</div><div class="hex">#FF85BC</div><div class="use">Pink text on dark</div></div></div>
+  <div class="sw"><div class="chip" style="background:#3A1A28"><span>#3A1A28</span></div><div class="meta"><div class="token">accent-tint</div><div class="role">Pink tint</div><div class="hex">#3A1A28</div><div class="use">Pink badges, selected / soft backgrounds</div></div></div>
 </div>
 
-<h3>Neutrals &amp; Text</h3>
+<h3>Neutrals<span class="ct">4 tokens</span></h3>
 <div class="grid">
-  <div class="sw"><div class="chip" style="background:#0A0E12"><span>#0A0E12</span></div><div class="meta"><div class="token">bg</div><div class="role">Background</div><div class="hex">#0A0E12</div><div class="use">Near-black base</div></div></div>
-  <div class="sw"><div class="chip" style="background:#141A20"><span>#141A20</span></div><div class="meta"><div class="token">surface</div><div class="role">Surface</div><div class="hex">#141A20</div><div class="use">Cards</div></div></div>
-  <div class="sw"><div class="chip" style="background:#1E2630"><span>#1E2630</span></div><div class="meta"><div class="token">surface-raised</div><div class="role">Surface raised</div><div class="hex">#1E2630</div><div class="use">Panels, dialogs</div></div></div>
-  <div class="sw"><div class="chip" style="background:#2A3742"><span>#2A3742</span></div><div class="meta"><div class="token">border</div><div class="role">Border</div><div class="hex">#2A3742</div><div class="use">Dividers</div></div></div>
-  <div class="sw"><div class="chip" style="background:#EAF2F2"><span>#EAF2F2</span></div><div class="meta"><div class="token">text</div><div class="role">Text (off-white)</div><div class="hex">#EAF2F2</div><div class="use">Body text</div></div></div>
-  <div class="sw"><div class="chip" style="background:#A9BAC2"><span>#A9BAC2</span></div><div class="meta"><div class="token">text-muted</div><div class="role">Text muted</div><div class="hex">#A9BAC2</div><div class="use">Captions</div></div></div>
+  <div class="sw"><div class="chip" style="background:#0A0E12"><span>#0A0E12</span></div><div class="meta"><div class="token">bg</div><div class="role">Background</div><div class="hex">#0A0E12</div><div class="use">Near-black base (recessed)</div></div></div>
+  <div class="sw"><div class="chip" style="background:#141A20"><span>#141A20</span></div><div class="meta"><div class="token">surface</div><div class="role">Surface</div><div class="hex">#141A20</div><div class="use">Cards, base panels</div></div></div>
+  <div class="sw"><div class="chip" style="background:#1E2630"><span>#1E2630</span></div><div class="meta"><div class="token">surface-raised</div><div class="role">Surface raised</div><div class="hex">#1E2630</div><div class="use">Dialogs, popovers (top tier)</div></div></div>
+  <div class="sw"><div class="chip" style="background:#2A3742"><span>#2A3742</span></div><div class="meta"><div class="token">border</div><div class="role">Border</div><div class="hex">#2A3742</div><div class="use">Dividers, outlines</div></div></div>
 </div>
 
-<h3>Semantic</h3>
+<h3>Text<span class="ct">2 tokens</span></h3>
+<div class="grid">
+  <div class="sw"><div class="chip" style="background:#EAF2F2"><span>#EAF2F2</span></div><div class="meta"><div class="token">text</div><div class="role">Text (off-white)</div><div class="hex">#EAF2F2</div><div class="use">Body text, headings</div></div></div>
+  <div class="sw"><div class="chip" style="background:#A9BAC2"><span>#A9BAC2</span></div><div class="meta"><div class="token">text-muted</div><div class="role">Text muted</div><div class="hex">#A9BAC2</div><div class="use">Captions, metadata, placeholders</div></div></div>
+</div>
+
+<h3>Semantic<span class="ct">4 tokens</span></h3>
 <div class="grid">
   <div class="sw"><div class="chip" style="background:#45E0A0"><span>#45E0A0</span></div><div class="meta"><div class="token">success</div><div class="role">Success</div><div class="hex">#45E0A0</div><div class="use">Done / on-track (teal-green)</div></div></div>
   <div class="sw"><div class="chip" style="background:#FFA552"><span>#FFA552</span></div><div class="meta"><div class="token">warning</div><div class="role">Warning</div><div class="hex">#FFA552</div><div class="use">Due soon (orange)</div></div></div>
