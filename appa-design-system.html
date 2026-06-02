@@ -566,7 +566,7 @@ body {
 <div class="topbar">
   <div class="topbar-brand">
     <div class="topbar-logo">A</div>
-    Appa Design System · v1.0
+    Appa Design System · v2.0
   </div>
   <div class="topbar-actions">
     <button class="btn-theme" onclick="toggleTheme()">☀ / ☾ Theme</button>
@@ -582,7 +582,7 @@ body {
     <div class="hero-logo-row">
       <div class="hero-logo">A</div>
       <div>
-        <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:6px;">Design System · v1.0 · 2026</div>
+        <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:6px;">Design System · v2.0 · 2026</div>
         <div class="hero-title">Appa Design System</div>
         <div class="hero-sub">Teal-led · pink accent · calm entry · joyful exit · never overwhelming</div>
       </div>
@@ -1447,26 +1447,26 @@ body {
 
   <div class="ds-section">
     <div class="ds-section-title">Copy-paste token reference</div>
-    <div class="token-block"><span class="cm">/* APPA DESIGN SYSTEM — CSS TOKENS v1.0 */</span>
+    <div class="token-block"><span class="cm">/* APPA DESIGN SYSTEM — CSS TOKENS v2.0 */</span>
 <span class="cm">/* Source: panthini07.github.io/appa-design-system */</span>
 
 <span class="sc">:root {</span>
   <span class="cm">/* Primary — teal */</span>
-  <span class="tk">--primary</span>:        <span class="vl">#11D2CB</span>;  <span class="cm">/* Buttons, nav, brand */</span>
-  <span class="tk">--primary-bright</span>: <span class="vl">#5FE6DF</span>;  <span class="cm">/* Highlights */</span>
+  <span class="tk">--primary</span>:        <span class="vl">#11D2CB</span>;  <span class="cm">/* Actions, nav, brand */</span>
+  <span class="tk">--primary-bright</span>: <span class="vl">#5FE6DF</span>;  <span class="cm">/* Highlights, light fills */</span>
   <span class="tk">--primary-strong</span>: <span class="vl">#07BDB5</span>;  <span class="cm">/* Hover / pressed */</span>
-  <span class="tk">--primary-tint</span>:   <span class="vl">#DDF9F7</span>;  <span class="cm">/* Selected rows */</span>
+  <span class="tk">--primary-tint</span>:   <span class="vl">#DDF9F7</span>;  <span class="cm">/* Ambient surfaces, sent bubble */</span>
 
-  <span class="cm">/* Accent — pink (use sparingly, 1 per view) */</span>
-  <span class="tk">--accent</span>:         <span class="vl">#FF4D97</span>;  <span class="cm">/* Key CTA fill */</span>
-  <span class="tk">--accent-text</span>:    <span class="vl">#E0357F</span>;  <span class="cm">/* Pink text / links */</span>
-  <span class="tk">--accent-tint</span>:    <span class="vl">#FFE3EF</span>;  <span class="cm">/* Pink badges */</span>
+  <span class="cm">/* Accent — pink (1 per view max) */</span>
+  <span class="tk">--accent</span>:         <span class="vl">#FF4D97</span>;
+  <span class="tk">--accent-text</span>:    <span class="vl">#E0357F</span>;
+  <span class="tk">--accent-tint</span>:    <span class="vl">#FFE3EF</span>;
 
   <span class="cm">/* Neutrals — cool luminous */</span>
-  <span class="tk">--bg</span>:             <span class="vl">#F6F9FF</span>;  <span class="cm">/* Page canvas */</span>
-  <span class="tk">--surface</span>:        <span class="vl">#FCFDFF</span>;  <span class="cm">/* Cards */</span>
-  <span class="tk">--surface-raised</span>: <span class="vl">#FFFFFF</span>;  <span class="cm">/* Dialogs */</span>
-  <span class="tk">--border</span>:         <span class="vl">#E6EAF2</span>;  <span class="cm">/* Dividers */</span>
+  <span class="tk">--bg</span>:             <span class="vl">#F6F9FF</span>;
+  <span class="tk">--surface</span>:        <span class="vl">#FCFDFF</span>;
+  <span class="tk">--surface-raised</span>: <span class="vl">#FFFFFF</span>;
+  <span class="tk">--border</span>:         <span class="vl">#E6EAF2</span>;
 
   <span class="cm">/* Text */</span>
   <span class="tk">--text</span>:           <span class="vl">#16181C</span>;
@@ -1480,37 +1480,60 @@ body {
   <span class="tk">--gradient</span>: <span class="vl">linear-gradient(90deg,#11D2CB,#8FE9E2,#FFE3EF,#FF8FC2,#FF4D97)</span>;
 
   <span class="cm">/* Typography */</span>
-  <span class="tk">--font-sans</span>: <span class="vl">'Google Sans', system-ui, sans-serif</span>;
-  <span class="tk">--text-hero</span>: 28px; <span class="tk">--text-title</span>: 24px; <span class="tk">--text-section</span>: 20px;
-  <span class="tk">--text-body</span>: 16px; <span class="tk">--text-sm</span>: 15px; <span class="tk">--text-micro</span>: 11px;
+  <span class="tk">--font-sans</span>:    <span class="vl">'Google Sans', 'Product Sans', system-ui, sans-serif</span>;
+  <span class="tk">--font-display</span>: <span class="vl">'Google Sans Display', 'Google Sans', sans-serif</span>;
+  <span class="tk">--font-mono</span>:    <span class="vl">'Google Sans Mono', 'Roboto Mono', monospace</span>;
+  <span class="cm">/* type scale (applied via CSS): hero 28 · title 24 · section 20 · body 16 · sm 15 · caption 13 · micro 11 */</span>
 
-  <span class="cm">/* Spacing */</span>
-  <span class="tk">--sp-2</span>: 8px; <span class="tk">--sp-4</span>: 16px; <span class="tk">--sp-6</span>: 24px; <span class="tk">--sp-8</span>: 32px;
+  <span class="cm">/* Spacing — 4px base */</span>
+  <span class="tk">--sp-1</span>: 4px;  <span class="tk">--sp-2</span>: 8px;  <span class="tk">--sp-3</span>: 12px; <span class="tk">--sp-4</span>: 16px;
+  <span class="tk">--sp-5</span>: 20px; <span class="tk">--sp-6</span>: 24px; <span class="tk">--sp-8</span>: 32px; <span class="tk">--sp-10</span>: 40px; <span class="tk">--sp-12</span>: 48px;
 
   <span class="cm">/* Radius */</span>
-  <span class="tk">--r-md</span>: 12px; <span class="tk">--r-lg</span>: 16px; <span class="tk">--r-xl</span>: 20px; <span class="tk">--r-pill</span>: 999px;
+  <span class="tk">--r-xs</span>: 4px; <span class="tk">--r-sm</span>: 8px; <span class="tk">--r-md</span>: 12px; <span class="tk">--r-lg</span>: 16px;
+  <span class="tk">--r-xl</span>: 20px; <span class="tk">--r-2xl</span>: 24px; <span class="tk">--r-pill</span>: 999px; <span class="tk">--r-circle</span>: 50%;
+
+  <span class="cm">/* Borders */</span>
+  <span class="tk">--bd-subtle</span>:   <span class="vl">0.5px solid var(--border)</span>;
+  <span class="tk">--bd-default</span>:  <span class="vl">1px solid var(--border)</span>;
+  <span class="tk">--bd-strong</span>:   <span class="vl">1.5px solid var(--primary)</span>;
+  <span class="tk">--bd-selected</span>: <span class="vl">2px solid var(--primary)</span>;
+
+  <span class="cm">/* Shadows — teal-tinted (light) */</span>
+  <span class="tk">--shadow-xs</span>: <span class="vl">0 1px 2px rgba(11,189,181,.06)</span>;
+  <span class="tk">--shadow-sm</span>: <span class="vl">0 2px 8px rgba(11,189,181,.10), 0 1px 2px rgba(11,189,181,.06)</span>;
+  <span class="tk">--shadow-md</span>: <span class="vl">0 4px 16px rgba(11,189,181,.14), 0 2px 4px rgba(11,189,181,.06)</span>;
+  <span class="tk">--shadow-lg</span>: <span class="vl">0 8px 28px rgba(11,189,181,.16), 0 4px 8px rgba(11,189,181,.08)</span>;
+  <span class="tk">--shadow-xl</span>: <span class="vl">0 16px 48px rgba(11,189,181,.18), 0 6px 12px rgba(11,189,181,.08)</span>;
+
+  <span class="cm">/* Sizing */</span>
+  <span class="tk">--btn-sm</span>: 32px; <span class="tk">--btn-md</span>: 44px; <span class="tk">--btn-lg</span>: 52px; <span class="tk">--input-h</span>: 44px;
+  <span class="tk">--icon-sm</span>: 20px; <span class="tk">--icon-md</span>: 24px; <span class="tk">--icon-lg</span>: 28px; <span class="tk">--icon-xl</span>: 40px;
 
   <span class="cm">/* Motion */</span>
-  <span class="tk">--dur-fast</span>: 120ms; <span class="tk">--dur-default</span>: 220ms;
+  <span class="tk">--dur-fast</span>: 120ms; <span class="tk">--dur-default</span>: 220ms; <span class="tk">--dur-slow</span>: 360ms; <span class="tk">--dur-enter</span>: 480ms;
+  <span class="tk">--delay-hover</span>: 200ms;  <span class="cm">/* hover-reveal intent delay */</span>
+  <span class="tk">--ease-out</span>:    <span class="vl">cubic-bezier(0,0,.2,1)</span>;
   <span class="tk">--ease-spring</span>: <span class="vl">cubic-bezier(.34,1.56,.64,1)</span>;
 <span class="sc">}</span>
 
-<span class="cm">/* Dark mode */</span>
-<span class="sc">@media (prefers-color-scheme: dark) {</span>
-  <span class="sc">:root {</span>
-    <span class="tk">--primary</span>: <span class="vl">#0B9FBD</span>; <span class="tk">--primary-bright</span>: <span class="vl">#3FC4DC</span>;
-    <span class="tk">--primary-strong</span>: <span class="vl">#025067</span>; <span class="tk">--primary-tint</span>: <span class="vl">#06303C</span>;
-    <span class="tk">--accent</span>: <span class="vl">#B31B6F</span>; <span class="tk">--accent-text</span>: <span class="vl">#F060A6</span>; <span class="tk">--accent-tint</span>: <span class="vl">#6C0E42</span>;
-    <span class="tk">--bg</span>: <span class="vl">#000000</span>; <span class="tk">--surface</span>: <span class="vl">#0A1419</span>; <span class="tk">--surface-raised</span>: <span class="vl">#12222A</span>;
-    <span class="tk">--border</span>: <span class="vl">#1E3640</span>; <span class="tk">--text</span>: <span class="vl">#EAF6F8</span>; <span class="tk">--text-muted</span>: <span class="vl">#8FA9B2</span>;
-  <span class="sc">}</span>
+<span class="cm">/* Dark mode — rain-glass (cyan + magenta on black) */</span>
+<span class="sc">[data-theme="dark"] {</span>
+  <span class="tk">--primary</span>: <span class="vl">#0B9FBD</span>; <span class="tk">--primary-bright</span>: <span class="vl">#3FC4DC</span>;
+  <span class="tk">--primary-strong</span>: <span class="vl">#025067</span>; <span class="tk">--primary-tint</span>: <span class="vl">#06303C</span>;
+  <span class="tk">--accent</span>: <span class="vl">#B31B6F</span>; <span class="tk">--accent-text</span>: <span class="vl">#F060A6</span>; <span class="tk">--accent-tint</span>: <span class="vl">#6C0E42</span>;
+  <span class="tk">--bg</span>: <span class="vl">#000000</span>; <span class="tk">--surface</span>: <span class="vl">#0A1419</span>; <span class="tk">--surface-raised</span>: <span class="vl">#12222A</span>;
+  <span class="tk">--border</span>: <span class="vl">#1E3640</span>; <span class="tk">--text</span>: <span class="vl">#EAF6F8</span>; <span class="tk">--text-muted</span>: <span class="vl">#8FA9B2</span>;
+  <span class="tk">--success</span>: <span class="vl">#45E0A0</span>; <span class="tk">--warning</span>: <span class="vl">#FFA552</span>; <span class="tk">--error</span>: <span class="vl">#FF7A7E</span>; <span class="tk">--info</span>: <span class="vl">#A6AEFF</span>;
+  <span class="tk">--gradient</span>: <span class="vl">linear-gradient(90deg,#0B9FBD,#3FC4DC,#6C0E42,#B31B6F)</span>;
+  <span class="cm">/* shadows switch to pure black: rgba(0,0,0,.4) → rgba(0,0,0,.7) */</span>
 <span class="sc">}</span></div>
   </div>
 
   <!-- FOOTER -->
   <div style="text-align:center;padding:var(--sp-12) 0 var(--sp-6);border-top:var(--bd-subtle);margin-top:var(--sp-8);">
     <div style="height:4px;border-radius:2px;background:var(--gradient);max-width:160px;margin:0 auto var(--sp-5);"></div>
-    <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Appa Design System · v1.0</div>
+    <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Appa Design System · v2.0</div>
     <div style="font-size:10px;color:var(--text-muted);">Built with psychology, not punishment · 2026</div>
   </div>
 
