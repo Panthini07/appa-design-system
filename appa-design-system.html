@@ -452,7 +452,7 @@ body {
 
 .bubble-out {
   display: inline-block; padding: 10px 14px;
-  background: var(--primary); color: #fff;
+  background: var(--primary-tint); color: var(--text);
   border-radius: 16px 16px 4px 16px;
   font-size: 14px; max-width: 240px; line-height: 1.5;
 }
@@ -1047,7 +1047,7 @@ body {
       </div>
       <div class="style-card">
         <div class="style-card-label">Accent link</div>
-        <div style="font-size:14px;font-weight:600;color:var(--accent-text);">Show more +2</div>
+        <div style="font-size:14px;font-weight:500;color:var(--accent-text);">Show more +2</div>
       </div>
       <div class="style-card">
         <div class="style-card-label">Gradient text</div>
@@ -1284,6 +1284,15 @@ body {
         </div>
       </div>
     </div>
+    <div style="margin-top:var(--sp-6);">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:var(--sp-3);">Gestures</div>
+      <div style="background:var(--surface);border-radius:var(--r-lg);border:var(--bd-subtle);overflow:hidden;">
+        <div class="settings-row"><span>Circular gesture on screen</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">Opens the Note feature</span></div>
+        <div class="settings-row"><span>Long-press a task / card</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">Quick actions menu</span></div>
+        <div class="settings-row"><span>Swipe to dismiss a card</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">Snooze / clear (dissolve out)</span></div>
+        <div class="settings-row" style="border-bottom:none;"><span>Pull-to-refresh</span><span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">Calm exhale on release</span></div>
+      </div>
+    </div>
   </div>
 
   <div class="ds-section">
@@ -1325,29 +1334,29 @@ body {
     <div style="display:flex;flex-direction:column;gap:var(--sp-6);">
 
       <div>
-        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Primary — teal CTA</div>
+        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Default — outline (most buttons)</div>
+        <div class="ds-row" style="align-items:center;">
+          <button class="btn btn-outline">Back</button>
+          <button class="btn btn-outline btn-sm">See all →</button>
+          <div class="ds-label" style="text-align:left;">r-pill · transparent + coloured border · hover → tint + primary border</div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Primary — solid teal (the one key action per view)</div>
         <div class="ds-row" style="align-items:center;">
           <button class="btn btn-primary">Pick me up</button>
           <button class="btn btn-primary btn-sm">Join</button>
           <button class="btn btn-primary btn-sm" style="gap:8px;"><span class="spinner"></span>Loading</button>
-          <div class="ds-label" style="text-align:left;">r-pill · --primary fill · hover → primary-strong + shadow</div>
+          <div class="ds-label" style="text-align:left;">r-pill · --primary fill · reserve for the single key action</div>
         </div>
       </div>
 
       <div>
-        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Accent — pink CTA (one per view max)</div>
+        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Accent — pink (rare · one per view max)</div>
         <div class="ds-row" style="align-items:center;">
           <button class="btn btn-accent">Start now</button>
           <div class="ds-label" style="text-align:left;">r-pill · --accent fill · used sparingly</div>
-        </div>
-      </div>
-
-      <div>
-        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Secondary / outline</div>
-        <div class="ds-row" style="align-items:center;">
-          <button class="btn btn-outline">Back</button>
-          <button class="btn btn-outline btn-sm">See all →</button>
-          <div class="ds-label" style="text-align:left;">r-pill · transparent · hover → tint + primary border</div>
         </div>
       </div>
 
@@ -1428,7 +1437,7 @@ body {
       <div style="display:flex;justify-content:flex-start;"><div class="bubble-in">Let's start with just opening the file. That's it. Nothing else.</div></div>
       <div style="display:flex;justify-content:flex-end;"><div class="bubble-out">Okay. Done. That was easy.</div></div>
     </div>
-    <div class="ds-label" style="text-align:left;margin-top:8px;">Sent: 16 16 4 16 · --primary bg · Received: 16 16 16 4 · surface-raised</div>
+    <div class="ds-label" style="text-align:left;margin-top:8px;">Sent: 16 16 4 16 · --primary-tint bg · dark text · Received: 16 16 16 4 · surface-raised</div>
   </div>
 
   <!-- =============================================
