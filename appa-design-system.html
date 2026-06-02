@@ -58,7 +58,7 @@
   /* --- RADIUS --- */
   --r-xs:   4px;  --r-sm:  8px;   --r-md: 12px;
   --r-lg:  16px;  --r-xl:  20px;  --r-2xl: 24px;
-  --r-pill: 999px;
+  --r-pill: 999px; --r-circle: 50%;
 
   /* --- BORDERS --- */
   --bd-subtle:   0.5px solid var(--border);
@@ -76,13 +76,14 @@
   /* --- SIZING --- */
   --btn-sm: 32px; --btn-md: 44px; --btn-lg: 52px;
   --input-h: 44px;
-  --icon-sm: 16px; --icon-md: 20px; --icon-lg: 24px;
+  --icon-sm: 20px; --icon-md: 24px; --icon-lg: 28px; --icon-xl: 40px;
 
   /* --- MOTION --- */
   --dur-fast:    120ms;
   --dur-default: 220ms;
   --dur-slow:    360ms;
   --dur-enter:   480ms;
+  --delay-hover: 200ms;
   --ease-out:    cubic-bezier(0.0, 0.0, 0.2, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -179,21 +180,21 @@ body {
 .btn-primary {
   background: var(--primary); color: #fff;
   border-radius: var(--r-pill);
-  height: var(--btn-lg); padding: 0 var(--sp-8); font-size: 16px;
+  height: var(--btn-md); padding: 0 var(--sp-6); font-size: 16px;
 }
 .btn-primary:hover { background: var(--primary-strong); box-shadow: var(--shadow-md); }
 
 .btn-accent {
   background: var(--accent); color: #fff;
   border-radius: var(--r-pill);
-  height: var(--btn-lg); padding: 0 var(--sp-8); font-size: 16px;
+  height: var(--btn-md); padding: 0 var(--sp-6); font-size: 16px;
 }
 .btn-accent:hover { filter: brightness(0.9); box-shadow: var(--shadow-md); }
 
 .btn-outline {
   background: transparent; color: var(--text);
   border: var(--bd-default); border-radius: var(--r-pill);
-  height: var(--btn-lg); padding: 0 var(--sp-8); font-size: 16px;
+  height: var(--btn-md); padding: 0 var(--sp-6); font-size: 16px;
 }
 .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-tint); }
 
@@ -223,7 +224,7 @@ body {
 
 .btn-disabled {
   background: var(--border); color: var(--text-muted); border-radius: var(--r-pill);
-  height: var(--btn-lg); padding: 0 var(--sp-8); font-size: 16px;
+  height: var(--btn-md); padding: 0 var(--sp-6); font-size: 16px;
   display: inline-flex; align-items: center; justify-content: center;
   cursor: not-allowed; pointer-events: none;
 }
@@ -429,7 +430,7 @@ body {
 
 .input {
   width: 100%; height: var(--input-h);
-  border-radius: var(--r-md); border: var(--bd-default);
+  border-radius: var(--r-md); border: 1px solid color-mix(in srgb, var(--text) 38%, transparent);
   background: var(--surface); padding: 0 var(--sp-4);
   font-family: var(--font-sans); font-size: 16px; color: var(--text);
   outline: none; transition: border var(--dur-fast), box-shadow var(--dur-fast);
@@ -446,8 +447,8 @@ body {
   font-size: 13px; font-weight: 500; border: var(--bd-subtle);
   background: var(--surface); color: var(--text);
 }
-.tag-primary { background: var(--primary-tint); color: var(--primary-strong); border-color: color-mix(in srgb, var(--primary) 20%, transparent); }
-.tag-accent { background: var(--accent-tint); color: var(--accent-text); border-color: color-mix(in srgb, var(--accent) 20%, transparent); }
+.tag-primary { background: transparent; color: var(--primary-strong); border-color: color-mix(in srgb, var(--primary) 45%, transparent); }
+.tag-accent { background: transparent; color: var(--accent-text); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
 
 .bubble-out {
   display: inline-block; padding: 10px 14px;
@@ -504,6 +505,10 @@ body {
 .anim-box.lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
 .anim-box.fade { transition: opacity var(--dur-default) var(--ease-out); }
 .anim-box.fade:hover { opacity: 0.55; }
+.anim-box.morph { transition: border-radius var(--dur-default) var(--ease-spring); }
+.anim-box.morph:hover { border-radius: 50%; }
+.anim-box.dissolve { transition: opacity var(--dur-default) var(--ease-out), filter var(--dur-default) var(--ease-out); }
+.anim-box.dissolve:hover { opacity: 0; filter: blur(4px); }
 
 /* ============================================================
    MOTION TABLE
@@ -612,7 +617,7 @@ body {
 
   <div class="ds-section">
     <div class="ds-section-title">Primary — Teal · 4 tokens</div>
-    <div class="ds-note">Primary color of action. Teal carries the most UI surface area — buttons, nav, brand, selected states. Hierarchy: primary → primary-bright → primary-strong → primary-tint.</div>
+    <div class="ds-note">Primary color of action. Teal carries the most UI surface area — buttons, nav, brand, selected states. Hierarchy: primary → primary-bright → primary-strong → primary-tint. Reserve full-saturation --primary (#11D2CB) for actions and CTAs; use --primary-tint or lighter shades for ambient, high-frequency, and background elements so the UI stays calm.</div>
     <div class="swatch-grid">
       <div class="swatch">
         <div class="swatch-color" style="background:#11D2CB;"></div>
@@ -1000,16 +1005,16 @@ body {
       <div class="type-meta">Body · 16px · 400 · lh 1.7<br>Paragraph, form labels</div>
     </div>
     <div class="type-row">
-      <div style="font-size:14px;font-weight:400;color:var(--text-muted);line-height:1.5;">DeepRiver · 2h · Iced matcha as my green thing today</div>
-      <div class="type-meta">Body SM · 14px · 400 · lh 1.5<br>Timestamps, secondary text</div>
+      <div style="font-size:15px;font-weight:400;color:var(--text-muted);line-height:1.5;">DeepRiver · 2h · Iced matcha as my green thing today</div>
+      <div class="type-meta">Body SM · 15px · 400 · lh 1.5<br>Timestamps, secondary text</div>
     </div>
     <div class="type-row">
-      <div style="font-size:12px;font-weight:400;color:var(--text-muted);line-height:1.4;">Caption · helper note · metadata</div>
-      <div class="type-meta">Caption · 12px · 400</div>
+      <div style="font-size:13px;font-weight:400;color:var(--text-muted);line-height:1.4;">Caption · helper note · metadata</div>
+      <div class="type-meta">Caption · 13px · 400</div>
     </div>
     <div class="type-row">
-      <div style="font-size:10px;font-weight:500;color:var(--text-muted);letter-spacing:0.02em;">Badge · Footer · 10px minimum — never lower</div>
-      <div class="type-meta">Micro · 10px · 500<br>Badges, footer labels</div>
+      <div style="font-size:11px;font-weight:500;color:var(--text-muted);letter-spacing:0.02em;">Badge · Footer · 11px minimum — never lower</div>
+      <div class="type-meta">Micro · 11px · 500<br>Badges, footer labels</div>
     </div>
   </div>
 
@@ -1029,8 +1034,8 @@ body {
         <div style="font-size:16px;font-style:italic;font-family:var(--font-display);color:var(--text);">Read for the <em>week</em></div>
       </div>
       <div class="style-card">
-        <div class="style-card-label">Lowercase · brand</div>
-        <div style="font-size:14px;color:var(--text-muted);">appa · p-avoidant · skip</div>
+        <div class="style-card-label">Lowercase · wordmark + tags</div>
+        <div style="font-size:14px;color:var(--text-muted);">appa · p-avoidant · #hashtag</div>
       </div>
       <div class="style-card">
         <div class="style-card-label">Medium · UI label</div>
@@ -1042,7 +1047,7 @@ body {
       </div>
       <div class="style-card">
         <div class="style-card-label">Accent link</div>
-        <div style="font-size:14px;font-weight:500;color:var(--accent-text);">Show more +2</div>
+        <div style="font-size:14px;font-weight:600;color:var(--accent-text);">Show more +2</div>
       </div>
       <div class="style-card">
         <div class="style-card-label">Gradient text</div>
@@ -1123,7 +1128,23 @@ body {
 
   <div class="ds-section">
     <div class="ds-section-title">Corner radius — round ≫ square</div>
-    <div class="ds-note">Appa leans playful. Default to higher radius. Only reduce for data-dense tables or nested inner elements. <strong>Radius never changes on hover</strong> — only color and border weight shift.</div>
+    <div class="ds-note">Two things live here: the <strong>scale</strong> (the allowed roundness values, from 4px up to a full pill and a circle) and the <strong>assignments</strong> (which element uses which). Read the table first — it maps every element to its corner. Appa leans playful: default to higher radius; only reduce for data-dense tables or nested inner elements. <strong>Radius never changes on hover</strong> — only colour and border weight shift.</div>
+    <div style="background:var(--surface);border-radius:var(--r-lg);border:var(--bd-subtle);overflow:hidden;">
+      <div style="padding:var(--sp-4) var(--sp-5);border-bottom:var(--bd-subtle);font-size:13px;font-weight:700;color:var(--text);">Radius by element / function</div>
+      <div class="settings-row"><span>Settings list rows</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">0px — full-width, no card</span></div>
+      <div class="settings-row"><span>Inner tags (nested)</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">4px</span></div>
+      <div class="settings-row"><span>Badge, chip</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">8px</span></div>
+      <div class="settings-row"><span>Input, search</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">12px</span></div>
+      <div class="settings-row"><span>Standard card (feed, check-in)</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">16px</span></div>
+      <div class="settings-row"><span>Photo / media card</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">16px top · 12px bottom</span></div>
+      <div class="settings-row"><span>Chat bubble (sent)</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">16 16 4 16</span></div>
+      <div class="settings-row"><span>Chat bubble (received)</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">16 16 16 4</span></div>
+      <div class="settings-row"><span>Breathe banner</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">20px</span></div>
+      <div class="settings-row"><span>Breathe prompt (circular)</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">circle · 50% (1:1)</span></div>
+      <div class="settings-row"><span>Bottom sheet / modal</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">24px top only</span></div>
+      <div class="settings-row" style="border-bottom:none;"><span>CTA button · Tag · Nav pill</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">999px pill</span></div>
+    </div>
+    <div class="ds-label" style="text-align:left;margin:var(--sp-6) 0 var(--sp-3);">The scale — allowed values</div>
     <div class="radius-row">
       <div class="r-item"><div class="r-box" style="border-radius:4px;"></div><div class="ds-label">r-xs · 4px<br>Inner tags</div></div>
       <div class="r-item"><div class="r-box" style="border-radius:8px;"></div><div class="ds-label">r-sm · 8px<br>Badge, chip</div></div>
@@ -1132,18 +1153,7 @@ body {
       <div class="r-item"><div class="r-box" style="border-radius:20px;"></div><div class="ds-label">r-xl · 20px<br>Breathe banner</div></div>
       <div class="r-item"><div class="r-box" style="border-radius:24px;"></div><div class="ds-label">r-2xl · 24px<br>Bottom sheet</div></div>
       <div class="r-item"><div class="r-box" style="border-radius:999px;width:80px;"></div><div class="ds-label">r-pill · 999px<br>CTA · Tag · Nav</div></div>
-    </div>
-    <div style="margin-top:var(--sp-6);background:var(--surface);border-radius:var(--r-lg);border:var(--bd-subtle);overflow:hidden;">
-      <div style="padding:var(--sp-4) var(--sp-5);border-bottom:var(--bd-subtle);font-size:13px;font-weight:700;color:var(--text);">Radius by element / function</div>
-      <div class="settings-row"><span>Settings list rows</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">0px — full-width, no card</span></div>
-      <div class="settings-row"><span>Input, search</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">12px</span></div>
-      <div class="settings-row"><span>Standard card (feed, check-in)</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">16px</span></div>
-      <div class="settings-row"><span>Photo / media card</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">16px top · 12px bottom</span></div>
-      <div class="settings-row"><span>Chat bubble (sent)</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">16 16 4 16</span></div>
-      <div class="settings-row"><span>Chat bubble (received)</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">16 16 16 4</span></div>
-      <div class="settings-row"><span>Breathe banner</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">20px</span></div>
-      <div class="settings-row"><span>Bottom sheet / modal</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">24px top only</span></div>
-      <div class="settings-row" style="border-bottom:none;"><span>CTA button · Tag · Nav pill</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">999px pill</span></div>
+      <div class="r-item"><div class="r-box" style="border-radius:50%;width:52px;"></div><div class="ds-label">circle · 50%<br>Breathe prompt</div></div>
     </div>
   </div>
 
@@ -1175,23 +1185,23 @@ body {
 
   <div class="ds-section">
     <div class="ds-section-title">Icon sizes — match adjacent text</div>
-    <div class="ds-note">Google Luminous Symbols (variable). Icon size matches the adjacent text. Default weight: 400. Bold contexts use weight 500–600. Never use filled icons — outline only.</div>
+    <div class="ds-note">Google Luminous Symbols (variable). Icons may run a notch larger than adjacent text for comfort; standalone and nav icons are ≥24px regardless. Default weight: 400; bold contexts 500–600. Never use filled icons — outline only.</div>
     <div class="ds-row" style="align-items:flex-end;gap:var(--sp-8);">
       <div class="ds-col">
-        <div style="width:28px;height:28px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--primary);">◻</div>
-        <div class="ds-label">16px<br>Micro / caption</div>
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--primary);">◻</div>
+        <div class="ds-label">20px<br>Micro / caption</div>
       </div>
       <div class="ds-col">
-        <div style="width:36px;height:36px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--primary);">◻</div>
-        <div class="ds-label">20px<br>Body inline</div>
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--primary);">◻</div>
+        <div class="ds-label">24px<br>Body inline</div>
       </div>
       <div class="ds-col">
-        <div style="width:44px;height:44px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--primary);">◻</div>
-        <div class="ds-label">24px<br>Section</div>
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--primary);">◻</div>
+        <div class="ds-label">28px<br>Section / standalone</div>
       </div>
       <div class="ds-col">
-        <div style="width:56px;height:56px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--primary);">◻</div>
-        <div class="ds-label">28–32px<br>Hero / empty state</div>
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--primary);">◻</div>
+        <div class="ds-label">36–40px<br>Hero / empty state</div>
       </div>
     </div>
 
@@ -1212,7 +1222,7 @@ body {
           <div class="avatar" style="width:40px;height:40px;font-size:14px;">A</div>
           <div class="avatar" style="width:56px;height:56px;font-size:18px;">A</div>
         </div>
-        <div style="font-size:10px;color:var(--text-muted);margin-top:6px;font-family:var(--font-mono);">24 · 32 · 40 · 56px</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:6px;font-family:var(--font-mono);">24 · 32 · 40 · 56px · profile 80 / 96 / 120</div>
       </div>
       <div style="padding:var(--sp-4);background:var(--surface);border-radius:var(--r-md);border:var(--bd-subtle);">
         <div style="font-size:10px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:8px;">CONTAINERS</div>
@@ -1235,14 +1245,14 @@ body {
       </div>
       <div style="flex:1;min-width:200px;padding:var(--sp-5);background:var(--surface);border-radius:var(--r-lg);border:var(--bd-subtle);">
         <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Illustration</div>
-        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;">Flat, rounded, character-forward. Uses brand palette (teal + pink). No complex gradients. Used for empty states, onboarding, emotional moments. Single accent colour per illustration.</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;">Flat, rounded, character-forward. No complex gradients. <strong>Functional</strong> illustrations (empty states, onboarding) stay on-brand — teal + pink, single accent each. <strong>Celebration / reward</strong> illustrations open up to a wider palette: bright, solid colours — no dull colours — so wins feel special.</div>
       </div>
     </div>
   </div>
 
   <div class="ds-section">
     <div class="ds-section-title">Motion</div>
-    <div class="ds-note">Motion feels like a calm exhale on entry, a small jolt of joy on exit. Spring easing for playful moments (button press, task check-off). Ease-out for all enters. <strong>Always respect prefers-reduced-motion.</strong></div>
+    <div class="ds-note">Motion feels like a calm exhale on entry, a small jolt of joy on exit. Spring easing for playful moments (button press, task check-off). Ease-out for all enters. Hover-revealed popovers use a short intent delay (~200ms, --delay-hover) before they appear and a fast exit, so an accidental swipe doesn't pop them up. <strong>Always respect prefers-reduced-motion.</strong></div>
     <table class="table" style="background:var(--surface);border-radius:var(--r-lg);overflow:hidden;border:var(--bd-subtle);">
       <thead><tr><th>Token</th><th>Duration</th><th>Easing</th><th>Use</th></tr></thead>
       <tbody>
@@ -1251,6 +1261,7 @@ body {
         <tr><td><span class="code">--dur-slow</span></td><td>360ms</td><td>ease-in-out</td><td>Screen transitions, modal enter/exit</td></tr>
         <tr><td><span class="code">--dur-enter</span></td><td>480ms</td><td>ease-out</td><td>Page load, onboarding reveals</td></tr>
         <tr><td><span class="code">--ease-spring</span></td><td>—</td><td>(.34,1.56,.64,1)</td><td>Button press, task check-off, confetti</td></tr>
+        <tr><td><span class="code">--delay-hover</span></td><td>200ms delay · in 220 · out 120</td><td>ease-out</td><td>Hover popovers / previews — delay prevents accidental triggers, fast exit</td></tr>
       </tbody>
     </table>
     <div style="margin-top:var(--sp-5);">
@@ -1259,6 +1270,8 @@ body {
         <div class="ds-col"><div class="anim-box" title="Spring scale"></div><div class="ds-label">Spring scale<br>Button, CTA</div></div>
         <div class="ds-col"><div class="anim-box lift" title="Lift"></div><div class="ds-label">Lift + shadow<br>Feed card</div></div>
         <div class="ds-col"><div class="anim-box fade" title="Fade"></div><div class="ds-label">Fade<br>Ghost / skip</div></div>
+        <div class="ds-col"><div class="anim-box morph" title="Shape morph"></div><div class="ds-label">Shape morph<br>Square → circle</div></div>
+        <div class="ds-col"><div class="anim-box dissolve" title="Dissolve"></div><div class="ds-label">Dissolve<br>Blur out, disappear</div></div>
         <div class="ds-col">
           <div style="width:52px;height:28px;background:var(--primary);border-radius:14px;position:relative;cursor:pointer;transition:background var(--dur-default);" onclick="var t=this;t.style.background=t._on?'var(--primary)':'var(--primary-strong)';t._on=!t._on;t.querySelector('span').style.transform=t._on?'translateX(24px)':'translateX(0)'">
             <span style="width:22px;height:22px;border-radius:50%;background:white;position:absolute;top:3px;left:3px;transition:transform var(--dur-default) var(--ease-spring);display:block;"></span>
@@ -1279,23 +1292,23 @@ body {
       <div class="tone-card tone-do">
         <div class="tone-label">✓ Do</div>
         <ul style="padding-left:16px;color:var(--primary-strong);line-height:2.2;">
-          <li>Present, friendly, minimal</li>
-          <li>Sometimes playful, sometimes funny</li>
-          <li>Calm on entry — actionable on exit</li>
+          <li>Be present, friendly, minimal</li>
+          <li>Be playful, sometimes funny</li>
+          <li>Open calm, exit actionable</li>
           <li>Mirror the user's own words</li>
-          <li>Joyful micro-moments (task check-off)</li>
+          <li>Celebrate joyful micro-moments (task check-off)</li>
           <li>Get out of the way fast</li>
         </ul>
       </div>
       <div class="tone-card tone-dont">
         <div class="tone-label">✗ Don't</div>
         <ul style="padding-left:16px;color:var(--accent-text);line-height:2.2;">
-          <li>Overwhelming or cluttered</li>
-          <li>Authoritative / preachy</li>
-          <li>Avoidance-triggering (guilt language)</li>
-          <li>Generic productivity clichés</li>
-          <li>Dense walls of text</li>
-          <li>Aggressive urgency nudges</li>
+          <li>Overwhelm or clutter</li>
+          <li>Be authoritative or preachy</li>
+          <li>Trigger avoidance (via guilt, shame, shocking language)</li>
+          <li>Use generic productivity clichés</li>
+          <li>Write dense walls of text</li>
+          <li>Use aggressive or urgency nudges</li>
         </ul>
       </div>
     </div>
@@ -1308,6 +1321,7 @@ body {
 
   <div class="ds-section">
     <div class="ds-section-title">Buttons</div>
+    <div class="ds-note">Default to outline buttons — coloured border, no fill. Reserve a solid fill for the single most important action per view. Filled buttons read loud; restraint keeps the UI calm.</div>
     <div style="display:flex;flex-direction:column;gap:var(--sp-6);">
 
       <div>
@@ -1391,6 +1405,7 @@ body {
 
   <div class="ds-section">
     <div class="ds-section-title">Form elements & tags</div>
+    <div class="ds-note">Borders at rest are a dark neutral — not coloured — so forms stay calm and clear. Teal appears only on focus. If you do tint a border (e.g. on a busy page), use a lighter shade, never full-saturation teal or pink. Topic tags are outline-only; status tags keep a light tint fill so the colour still reads at a glance.</div>
     <div style="max-width:340px;display:flex;flex-direction:column;gap:12px;">
       <input class="input" type="text" placeholder="Search spaces…">
       <input class="input" type="text" value="Focused input" style="border:1.5px solid var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 15%,transparent);" readonly>
@@ -1458,7 +1473,7 @@ body {
   <span class="cm">/* Typography */</span>
   <span class="tk">--font-sans</span>: <span class="vl">'Google Sans', system-ui, sans-serif</span>;
   <span class="tk">--text-hero</span>: 28px; <span class="tk">--text-title</span>: 24px; <span class="tk">--text-section</span>: 20px;
-  <span class="tk">--text-body</span>: 16px; <span class="tk">--text-sm</span>: 14px; <span class="tk">--text-micro</span>: 10px;
+  <span class="tk">--text-body</span>: 16px; <span class="tk">--text-sm</span>: 15px; <span class="tk">--text-micro</span>: 11px;
 
   <span class="cm">/* Spacing */</span>
   <span class="tk">--sp-2</span>: 8px; <span class="tk">--sp-4</span>: 16px; <span class="tk">--sp-6</span>: 24px; <span class="tk">--sp-8</span>: 32px;
