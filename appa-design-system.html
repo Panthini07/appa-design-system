@@ -499,15 +499,15 @@ body {
 .anim-box {
   width: 48px; height: 48px; border-radius: var(--r-lg);
   background: var(--primary); cursor: pointer;
-  transition: transform var(--dur-default) var(--ease-spring);
+  transition: transform var(--dur-slow) var(--ease-spring);
 }
 .anim-box:hover { transform: scale(1.08); }
 .anim-box.lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.anim-box.fade { transition: opacity var(--dur-default) var(--ease-out); }
+.anim-box.fade { transition: opacity var(--dur-slow) var(--ease-out); }
 .anim-box.fade:hover { opacity: 0.55; }
-.anim-box.morph { transition: border-radius var(--dur-default) var(--ease-spring); }
+.anim-box.morph { transition: border-radius var(--dur-slow) var(--ease-spring); }
 .anim-box.morph:hover { border-radius: 50%; }
-.anim-box.dissolve { transition: opacity var(--dur-default) var(--ease-out), filter var(--dur-default) var(--ease-out); }
+.anim-box.dissolve { transition: opacity var(--dur-slow) var(--ease-out), filter var(--dur-slow) var(--ease-out); }
 .anim-box.dissolve:hover { opacity: 0; filter: blur(4px); }
 
 /* ============================================================
@@ -1273,13 +1273,13 @@ body {
         <div class="ds-col"><div class="anim-box morph" title="Shape morph"></div><div class="ds-label">Shape morph<br>Square → circle</div></div>
         <div class="ds-col"><div class="anim-box dissolve" title="Dissolve"></div><div class="ds-label">Dissolve<br>Blur out, disappear</div></div>
         <div class="ds-col">
-          <div style="width:52px;height:28px;background:var(--primary);border-radius:14px;position:relative;cursor:pointer;transition:background var(--dur-default);" onclick="var t=this;t.style.background=t._on?'var(--primary)':'var(--primary-strong)';t._on=!t._on;t.querySelector('span').style.transform=t._on?'translateX(24px)':'translateX(0)'">
-            <span style="width:22px;height:22px;border-radius:50%;background:white;position:absolute;top:3px;left:3px;transition:transform var(--dur-default) var(--ease-spring);display:block;"></span>
+          <div style="width:52px;height:28px;background:var(--primary);border-radius:14px;position:relative;cursor:pointer;transition:background var(--dur-slow);" onclick="var t=this;t.style.background=t._on?'var(--primary)':'var(--primary-strong)';t._on=!t._on;t.querySelector('span').style.transform=t._on?'translateX(24px)':'translateX(0)'">
+            <span style="width:22px;height:22px;border-radius:50%;background:white;position:absolute;top:3px;left:3px;transition:transform var(--dur-slow) var(--ease-spring);display:block;"></span>
           </div>
           <div class="ds-label">Toggle switch</div>
         </div>
         <div class="ds-col">
-          <div style="width:48px;height:48px;border-radius:var(--r-lg);background:var(--accent);cursor:pointer;transition:transform var(--dur-default) var(--ease-spring);" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'"></div>
+          <div style="width:48px;height:48px;border-radius:var(--r-lg);background:var(--accent);cursor:pointer;transition:transform var(--dur-slow) var(--ease-spring);" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'"></div>
           <div class="ds-label">Accent spring<br>Pink CTA</div>
         </div>
       </div>
