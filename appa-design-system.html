@@ -10,7 +10,7 @@
 <style>
 
 /* ============================================================
-   APPA DESIGN SYSTEM — TOKENS
+   APPA DESIGN SYSTEM · TOKENS
    ============================================================ */
 
 /* LIGHT MODE (default) */
@@ -31,6 +31,7 @@
   --surface:        #FCFDFF;
   --surface-raised: #FFFFFF;
   --border:         #E6EAF2;
+  --overlay:        rgba(22,24,28,0.45);
 
   /* --- TEXT --- */
   --text:           #16181C;
@@ -103,6 +104,7 @@
   --surface:        #0A1419;
   --surface-raised: #12222A;
   --border:         #1E3640;
+  --overlay:        rgba(0,0,0,0.6);
 
   --text:           #EAF6F8;
   --text-muted:     #8FA9B2;
@@ -499,15 +501,15 @@ body {
 .anim-box {
   width: 48px; height: 48px; border-radius: var(--r-lg);
   background: var(--primary); cursor: pointer;
-  transition: transform var(--dur-slow) var(--ease-spring);
+  transition: transform 600ms var(--ease-spring);
 }
 .anim-box:hover { transform: scale(1.08); }
 .anim-box.lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.anim-box.fade { transition: opacity var(--dur-slow) var(--ease-out); }
+.anim-box.fade { transition: opacity 600ms var(--ease-out); }
 .anim-box.fade:hover { opacity: 0.55; }
-.anim-box.morph { transition: border-radius var(--dur-slow) var(--ease-spring); }
+.anim-box.morph { transition: border-radius 600ms var(--ease-spring); }
 .anim-box.morph:hover { border-radius: 50%; }
-.anim-box.dissolve { transition: opacity var(--dur-slow) var(--ease-out), filter var(--dur-slow) var(--ease-out); }
+.anim-box.dissolve { transition: opacity 600ms var(--ease-out), filter 600ms var(--ease-out); }
 .anim-box.dissolve:hover { opacity: 0; filter: blur(4px); }
 
 /* ============================================================
@@ -551,6 +553,55 @@ body {
 .token-block .sc { color: #8FA9B2; }
 
 /* ============================================================
+   V2 COMPONENTS · controls, progress, tabs, skeleton, toast…
+   ============================================================ */
+.scrim { position: absolute; inset: 0; background: var(--overlay); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); display: flex; align-items: flex-end; justify-content: center; }
+
+.switch { width: 48px; height: 28px; border-radius: var(--r-pill); background: var(--border); position: relative; cursor: pointer; transition: background var(--dur-default) var(--ease-out); flex-shrink: 0; }
+.switch.on { background: var(--primary); }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; box-shadow: var(--shadow-xs); transition: transform var(--dur-default) var(--ease-spring); }
+.switch.on::after { transform: translateX(20px); }
+
+.check { width: 22px; height: 22px; border-radius: 6px; border: 1.5px solid var(--text-muted); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-size: 14px; transition: all var(--dur-fast) var(--ease-out); }
+.check.on { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+.radio { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--text-muted); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all var(--dur-fast) var(--ease-out); }
+.radio.on { border-color: var(--primary); border-width: 2px; }
+.radio.on::after { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--primary); }
+
+.progress { height: 8px; border-radius: var(--r-pill); background: var(--primary-tint); overflow: hidden; }
+.progress > i { display: block; height: 100%; border-radius: var(--r-pill); background: var(--primary); }
+
+.segmented { display: inline-flex; background: var(--primary-tint); border-radius: var(--r-pill); padding: 3px; gap: 2px; }
+.segmented button { border: none; background: transparent; font-family: var(--font-sans); font-size: 13px; font-weight: 500; color: var(--text-muted); padding: 6px 16px; border-radius: var(--r-pill); cursor: pointer; transition: all var(--dur-default) var(--ease-out); }
+.segmented button.on { background: var(--surface-raised); color: var(--primary-strong); box-shadow: var(--shadow-xs); }
+.tabs { display: flex; gap: var(--sp-5); border-bottom: var(--bd-subtle); }
+.tabs button { border: none; background: transparent; font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: var(--text-muted); padding: 10px 2px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all var(--dur-default) var(--ease-out); }
+.tabs button.on { color: var(--primary); border-bottom-color: var(--primary); }
+
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.skeleton { background: linear-gradient(90deg, var(--border) 25%, color-mix(in srgb, var(--border) 55%, var(--surface)) 50%, var(--border) 75%); background-size: 200% 100%; animation: shimmer 1.6s ease-in-out infinite; border-radius: var(--r-sm); }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+.toast { display: inline-flex; align-items: center; gap: 10px; background: var(--text); color: var(--bg); padding: 12px 16px; border-radius: var(--r-md); box-shadow: var(--shadow-lg); font-size: 14px; font-weight: 500; }
+.toast .toast-action { color: var(--primary-bright); font-weight: 600; cursor: pointer; margin-left: 4px; }
+
+.count-badge { min-width: 18px; height: 18px; padding: 0 5px; border-radius: var(--r-pill); background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+
+.coachmark { position: relative; background: var(--info); color: #fff; padding: 12px 14px; border-radius: var(--r-md); font-size: 13px; max-width: 240px; box-shadow: var(--shadow-md); line-height: 1.5; }
+.coachmark::after { content: ""; position: absolute; bottom: -7px; left: 24px; border: 7px solid transparent; border-top-color: var(--info); border-bottom: 0; }
+
+.avatar-group { display: flex; }
+.avatar-group .avatar { margin-left: -10px; border: 2px solid var(--surface); }
+.avatar-group .avatar:first-child { margin-left: 0; }
+
+.list-item { display: flex; align-items: center; gap: 12px; padding: var(--sp-4) var(--sp-5); }
+.list-item .li-icon { width: 40px; height: 40px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--primary-tint); }
+.list-item .li-body { flex: 1; min-width: 0; }
+.list-item .li-title { font-size: 14px; font-weight: 500; color: var(--text); }
+.list-item .li-sub { font-size: 12px; color: var(--text-muted); }
+
+/* ============================================================
    PRINT
    ============================================================ */
 @media print { .topbar { display: none; } body { background: white; } }
@@ -565,7 +616,7 @@ body {
 <!-- TOP BAR -->
 <div class="topbar">
   <div class="topbar-brand">
-    <div class="topbar-logo">A</div>
+    <div class="topbar-logo"><svg viewBox="0 0 100 100" width="16" height="16"><path d="M22 54 L42 74 L82 26" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     Appa Design System · v2.0
   </div>
   <div class="topbar-actions">
@@ -580,7 +631,7 @@ body {
   <!-- HERO -->
   <div class="brand-hero">
     <div class="hero-logo-row">
-      <div class="hero-logo">A</div>
+      <div class="hero-logo"><svg viewBox="0 0 100 100" width="34" height="34"><path d="M22 54 L42 74 L82 26" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div>
         <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-muted); margin-bottom:6px;">Design System · v2.0 · 2026</div>
         <div class="hero-title">Appa Design System</div>
@@ -600,7 +651,10 @@ body {
       <a href="#sizing">Sizing</a>
       <a href="#brand">Brand & Motion</a>
       <a href="#components">Components</a>
+      <a href="#writing">Writing</a>
+      <a href="#dataviz">Data viz</a>
       <a href="#tokens">Tokens</a>
+      <a href="#diy">Rules for DIY</a>
     </nav>
   </div>
 
@@ -612,12 +666,12 @@ body {
   <div class="ds-section">
     <div class="ds-section-title">Signature gradient</div>
     <div class="swatch-gradient"></div>
-    <div class="ds-note">The luminous bridge between teal and pink. Used for the app logo, hero moments, loading indicators, and celebratory states — never as a background.</div>
+    <div class="ds-note">The luminous bridge between teal and pink. Used for the app logo, hero moments, loading indicators, and celebratory states · never as a background.</div>
   </div>
 
   <div class="ds-section">
-    <div class="ds-section-title">Primary — Teal · 4 tokens</div>
-    <div class="ds-note">Primary color of action. Teal carries the most UI surface area — buttons, nav, brand, selected states. Hierarchy: primary → primary-bright → primary-strong → primary-tint. Reserve full-saturation --primary (#11D2CB) for actions and CTAs; use --primary-tint or lighter shades for ambient, high-frequency, and background elements so the UI stays calm.</div>
+    <div class="ds-section-title">Primary · Teal · 4 tokens</div>
+    <div class="ds-note">Primary color of action. Teal carries the most UI surface area · buttons, nav, brand, selected states. Hierarchy: primary → primary-bright → primary-strong → primary-tint. Reserve full-saturation --primary (#11D2CB) for actions and CTAs; use --primary-tint or lighter shades for ambient, high-frequency, and background elements so the UI stays calm.</div>
     <div class="swatch-grid">
       <div class="swatch">
         <div class="swatch-color" style="background:#11D2CB;"></div>
@@ -655,8 +709,8 @@ body {
   </div>
 
   <div class="ds-section">
-    <div class="ds-section-title">Accent — Pink · 3 tokens</div>
-    <div class="ds-note">Accent pink is used sparingly — ONE key CTA per view maximum. Pink punctuates; teal carries. Never use both as fills on the same screen.</div>
+    <div class="ds-section-title">Accent · Pink · 3 tokens</div>
+    <div class="ds-note">Accent pink is used sparingly · ONE key CTA per view maximum. Pink punctuates; teal carries. Never use both as fills on the same screen.</div>
     <div class="swatch-grid">
       <div class="swatch">
         <div class="swatch-color" style="background:#FF4D97;"></div>
@@ -687,7 +741,7 @@ body {
 
   <div class="ds-section">
     <div class="ds-section-title">Neutrals · 4 tokens</div>
-    <div class="ds-note">Cool luminous whites — not warm/creamy. The blue-white base gives the UI a clean, slightly clinical-but-friendly feel. Surface hierarchy: bg (recessed) → surface (cards) → surface-raised (dialogs).</div>
+    <div class="ds-note">Cool luminous whites · not warm/creamy. The blue-white base gives the UI a clean, slightly clinical-but-friendly feel. Surface hierarchy: bg (recessed) → surface (cards) → surface-raised (dialogs).</div>
     <div class="swatch-grid">
       <div class="swatch">
         <div class="swatch-color" style="background:#F6F9FF; border-bottom:0.5px solid #E6EAF2;"></div>
@@ -747,33 +801,33 @@ body {
   </div>
 
   <div class="ds-section">
-    <div class="ds-section-title">Semantic · 4 tokens — drawn from the palette</div>
-    <div class="ds-note">Semantic colors are extracted from the same palette — orange carries procrastination urgency (deadline/warning), coral for error, periwinkle for calm info tips.</div>
+    <div class="ds-section-title">Semantic · 4 tokens · drawn from the palette</div>
+    <div class="ds-note">Semantic colors are extracted from the same palette · orange carries procrastination urgency (deadline/warning), coral for error, periwinkle for calm info tips.</div>
     <div class="semantic-row">
       <div class="sem-chip" style="background:#E8FBF4; border-color:rgba(20,212,154,0.25); color:#0a7a54;">
-        <span style="width:10px;height:10px;border-radius:50%;background:#14D49A;display:inline-block;flex-shrink:0;"></span> Success #14D49A — Done / on-track
+        <span style="width:10px;height:10px;border-radius:50%;background:#14D49A;display:inline-block;flex-shrink:0;"></span> Success #14D49A · Done / on-track
       </div>
     </div>
     <div class="semantic-row">
       <div class="sem-chip" style="background:#FFF3EA; border-color:rgba(255,138,61,0.25); color:#8A3A00;">
-        <span style="width:10px;height:10px;border-radius:50%;background:#FF8A3D;display:inline-block;flex-shrink:0;"></span> Warning #FF8A3D — Due soon
+        <span style="width:10px;height:10px;border-radius:50%;background:#FF8A3D;display:inline-block;flex-shrink:0;"></span> Warning #FF8A3D · Due soon
       </div>
     </div>
     <div class="semantic-row">
       <div class="sem-chip" style="background:#FFF0F0; border-color:rgba(255,90,95,0.25); color:#9E1B20;">
-        <span style="width:10px;height:10px;border-radius:50%;background:#FF5A5F;display:inline-block;flex-shrink:0;"></span> Error #FF5A5F — Overdue
+        <span style="width:10px;height:10px;border-radius:50%;background:#FF5A5F;display:inline-block;flex-shrink:0;"></span> Error #FF5A5F · Overdue
       </div>
     </div>
     <div class="semantic-row">
       <div class="sem-chip" style="background:#EEEEFF; border-color:rgba(139,147,242,0.25); color:#3540A0;">
-        <span style="width:10px;height:10px;border-radius:50%;background:#8B93F2;display:inline-block;flex-shrink:0;"></span> Info #8B93F2 — Tips (periwinkle)
+        <span style="width:10px;height:10px;border-radius:50%;background:#8B93F2;display:inline-block;flex-shrink:0;"></span> Info #8B93F2 · Tips (periwinkle)
       </div>
     </div>
   </div>
 
   <div class="ds-section">
-    <div class="ds-section-title">Dark mode — Rain-glass palette</div>
-    <div class="ds-note">Cyan + magenta on pure black. Same token names as light mode — a clean 1-to-1 swap. Counts: Primary 4 · Accent 3 · Neutrals 4 · Text 2 · Semantic 4.</div>
+    <div class="ds-section-title">Dark mode · Rain-glass palette</div>
+    <div class="ds-note">Cyan + magenta on pure black. Same token names as light mode · a clean 1-to-1 swap. Counts: Primary 4 · Accent 3 · Neutrals 4 · Text 2 · Semantic 4.</div>
 
     <!-- Dark gradient -->
     <div style="height:5px; border-radius:3px; background:linear-gradient(90deg,#0B9FBD,#3FC4DC,#6C0E42,#B31B6F); margin-bottom:16px;"></div>
@@ -782,10 +836,10 @@ body {
     <!-- wrapper on black -->
     <div style="background:#000; border-radius:16px; padding:20px; border:1px solid #1E3640; display:flex; flex-direction:column; gap:24px;">
 
-      <!-- PRIMARY — cyan family -->
+      <!-- PRIMARY · cyan family -->
       <div>
-        <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#8FA9B2; margin-bottom:10px; padding-bottom:8px; border-bottom:0.5px solid #1E3640;">Primary — cyan family · 4 tokens</div>
-        <div style="font-size:12px; color:#8FA9B2; margin-bottom:12px; line-height:1.6;">The hero — buttons, nav, brand. Cyan carries the most UI surface area in dark mode.</div>
+        <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#8FA9B2; margin-bottom:10px; padding-bottom:8px; border-bottom:0.5px solid #1E3640;">Primary · cyan family · 4 tokens</div>
+        <div style="font-size:12px; color:#8FA9B2; margin-bottom:12px; line-height:1.6;">The hero · buttons, nav, brand. Cyan carries the most UI surface area in dark mode.</div>
         <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:8px;">
           <div style="border-radius:10px; overflow:hidden; border:1px solid #1E3640;">
             <div style="height:60px; background:#0B9FBD;"></div>
@@ -822,17 +876,17 @@ body {
         </div>
       </div>
 
-      <!-- ACCENT — magenta family -->
+      <!-- ACCENT · magenta family -->
       <div>
-        <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#8FA9B2; margin-bottom:10px; padding-bottom:8px; border-bottom:0.5px solid #1E3640;">Accent — magenta · 3 tokens</div>
-        <div style="font-size:12px; color:#8FA9B2; margin-bottom:12px; line-height:1.6;">Fill — highlights, streaks, key CTA. One per view max.</div>
+        <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#8FA9B2; margin-bottom:10px; padding-bottom:8px; border-bottom:0.5px solid #1E3640;">Accent · magenta · 3 tokens</div>
+        <div style="font-size:12px; color:#8FA9B2; margin-bottom:12px; line-height:1.6;">Fill · highlights, key CTA. One per view max.</div>
         <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:8px;">
           <div style="border-radius:10px; overflow:hidden; border:1px solid #1E3640;">
             <div style="height:60px; background:#B31B6F;"></div>
             <div style="padding:8px 10px; background:#0A1419;">
               <span style="font-size:11px; font-weight:500; color:#EAF6F8; display:block;">accent ★</span>
               <span style="font-size:10px; color:#F060A6; font-family:monospace; display:block;">#B31B6F</span>
-              <span style="font-size:10px; color:#8FA9B2; display:block; margin-top:2px;">Fill — highlights, key CTA</span>
+              <span style="font-size:10px; color:#8FA9B2; display:block; margin-top:2px;">Fill · highlights, key CTA</span>
             </div>
           </div>
           <div style="border-radius:10px; overflow:hidden; border:1px solid #1E3640;">
@@ -924,7 +978,7 @@ body {
       <!-- SEMANTIC -->
       <div>
         <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#8FA9B2; margin-bottom:10px; padding-bottom:8px; border-bottom:0.5px solid #1E3640;">Semantic · 4 tokens</div>
-        <div style="font-size:12px; color:#8FA9B2; margin-bottom:12px; line-height:1.6;">Slightly lighter than light mode — needs extra brightness to read on black.</div>
+        <div style="font-size:12px; color:#8FA9B2; margin-bottom:12px; line-height:1.6;">Slightly lighter than light mode · needs extra brightness to read on black.</div>
         <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:8px;">
           <div style="border-radius:10px; overflow:hidden; border:1px solid #1E3640;">
             <div style="height:60px; background:#45E0A0;"></div>
@@ -1013,7 +1067,7 @@ body {
       <div class="type-meta">Caption · 13px · 400</div>
     </div>
     <div class="type-row">
-      <div style="font-size:11px;font-weight:500;color:var(--text-muted);letter-spacing:0.02em;">Badge · Footer · 11px minimum — never lower</div>
+      <div style="font-size:11px;font-weight:500;color:var(--text-muted);letter-spacing:0.02em;">Badge · Footer · 11px minimum · never lower</div>
       <div class="type-meta">Micro · 11px · 500<br>Badges, footer labels</div>
     </div>
   </div>
@@ -1092,6 +1146,19 @@ body {
     </div>
   </div>
 
+  <div class="ds-section">
+    <div class="ds-section-title">Safe areas &amp; responsive behaviour</div>
+    <div class="ds-note">Mobile-first. Respect device safe areas with <span class="code">env(safe-area-inset-*)</span> · content and the bottom nav never sit under the notch or home indicator. How core components adapt across breakpoints:</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:12px;align-items:flex-start;"><span class="code" style="min-width:84px;">≤ 375px</span><span style="font-size:13px;color:var(--text-muted);">Single column · full-width cards · bottom sheet · 16px edge margin + safe-area insets</span></div>
+      <div style="display:flex;gap:12px;align-items:flex-start;"><span class="code" style="min-width:84px;">768px</span><span style="font-size:13px;color:var(--text-muted);">2-column card grid · sheets may become centred modals · 24px margins</span></div>
+      <div style="display:flex;gap:12px;align-items:flex-start;"><span class="code" style="min-width:84px;">1024px+</span><span style="font-size:13px;color:var(--text-muted);">Optional left sidebar nav · content capped at 920px · multi-column feed</span></div>
+    </div>
+    <div style="margin-top:var(--sp-5);padding:var(--sp-4) var(--sp-5);background:var(--surface);border:var(--bd-subtle);border-radius:var(--r-md);">
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);line-height:1.9;">padding-bottom: calc(var(--sp-4) + env(safe-area-inset-bottom));<br>padding-top: calc(var(--sp-4) + env(safe-area-inset-top));</div>
+    </div>
+  </div>
+
   <!-- =============================================
        4. BORDERS & RADIUS
        ============================================= -->
@@ -1102,7 +1169,7 @@ body {
     <div class="border-row">
       <div style="min-width:80px;font-size:12px;font-weight:500;font-family:var(--font-mono);color:var(--text-muted);">0.5px</div>
       <div style="flex:1;max-width:160px;height:0;border-top:0.5px solid var(--border);"></div>
-      <div style="font-size:11px;color:var(--text-muted);">Default — cards, dividers, inputs at rest</div>
+      <div style="font-size:11px;color:var(--text-muted);">Default · cards, dividers, inputs at rest</div>
     </div>
     <div class="border-row">
       <div style="min-width:80px;font-size:12px;font-weight:500;font-family:var(--font-mono);color:var(--text-muted);">1px</div>
@@ -1112,7 +1179,7 @@ body {
     <div class="border-row">
       <div style="min-width:80px;font-size:12px;font-weight:500;font-family:var(--font-mono);color:var(--text-muted);">1.5px</div>
       <div style="flex:1;max-width:160px;height:0;border-top:1.5px solid var(--primary);"></div>
-      <div style="font-size:11px;color:var(--text-muted);">Focused input · active tab — teal</div>
+      <div style="font-size:11px;color:var(--text-muted);">Focused input · active tab · teal</div>
     </div>
     <div class="border-row">
       <div style="min-width:80px;font-size:12px;font-weight:500;font-family:var(--font-mono);color:var(--text-muted);">2px</div>
@@ -1122,16 +1189,16 @@ body {
     <div class="border-row">
       <div style="min-width:80px;font-size:12px;font-weight:500;font-family:var(--font-mono);color:var(--text-muted);">none</div>
       <div style="width:120px;height:20px;background:var(--primary);border-radius:999px;opacity:0.9;"></div>
-      <div style="font-size:11px;color:var(--text-muted);margin-left:12px;">Filled CTA — no visible border</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-left:12px;">Filled CTA · no visible border</div>
     </div>
   </div>
 
   <div class="ds-section">
-    <div class="ds-section-title">Corner radius — round ≫ square</div>
-    <div class="ds-note">Two things live here: the <strong>scale</strong> (the allowed roundness values, from 4px up to a full pill and a circle) and the <strong>assignments</strong> (which element uses which). Read the table first — it maps every element to its corner. Appa leans playful: default to higher radius; only reduce for data-dense tables or nested inner elements. <strong>Radius never changes on hover</strong> — only colour and border weight shift.</div>
+    <div class="ds-section-title">Corner radius · round ≫ square</div>
+    <div class="ds-note">Two things live here: the <strong>scale</strong> (the allowed roundness values, from 4px up to a full pill and a circle) and the <strong>assignments</strong> (which element uses which). Read the table first · it maps every element to its corner. Appa leans playful: default to higher radius; only reduce for data-dense tables or nested inner elements. <strong>Radius never changes on hover</strong> · only colour and border weight shift.</div>
     <div style="background:var(--surface);border-radius:var(--r-lg);border:var(--bd-subtle);overflow:hidden;">
       <div style="padding:var(--sp-4) var(--sp-5);border-bottom:var(--bd-subtle);font-size:13px;font-weight:700;color:var(--text);">Radius by element / function</div>
-      <div class="settings-row"><span>Settings list rows</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">0px — full-width, no card</span></div>
+      <div class="settings-row"><span>Settings list rows</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">0px · full-width, no card</span></div>
       <div class="settings-row"><span>Inner tags (nested)</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">4px</span></div>
       <div class="settings-row"><span>Badge, chip</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">8px</span></div>
       <div class="settings-row"><span>Input, search</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">12px</span></div>
@@ -1144,7 +1211,7 @@ body {
       <div class="settings-row"><span>Bottom sheet / modal</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">24px top only</span></div>
       <div class="settings-row" style="border-bottom:none;"><span>CTA button · Tag · Nav pill</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">999px pill</span></div>
     </div>
-    <div class="ds-label" style="text-align:left;margin:var(--sp-6) 0 var(--sp-3);">The scale — allowed values</div>
+    <div class="ds-label" style="text-align:left;margin:var(--sp-6) 0 var(--sp-3);">The scale · allowed values</div>
     <div class="radius-row">
       <div class="r-item"><div class="r-box" style="border-radius:4px;"></div><div class="ds-label">r-xs · 4px<br>Inner tags</div></div>
       <div class="r-item"><div class="r-box" style="border-radius:8px;"></div><div class="ds-label">r-sm · 8px<br>Badge, chip</div></div>
@@ -1163,8 +1230,8 @@ body {
   <div class="section-divider" id="shadows"><h2>5 · Shadows & Elevation</h2><div class="divider-line"></div></div>
 
   <div class="ds-section">
-    <div class="ds-section-title">Shadow levels — teal-tinted</div>
-    <div class="ds-note">Shadows are built from the brand teal at low opacity (light mode) or pure black (dark mode). Never use grey or black shadows in light mode — they break the cool luminous feel.</div>
+    <div class="ds-section-title">Shadow levels · teal-tinted</div>
+    <div class="ds-note">Shadows are built from the brand teal at low opacity (light mode) or pure black (dark mode). Never use grey or black shadows in light mode · they break the cool luminous feel.</div>
     <div class="shadow-row">
       <div class="ds-col"><div class="shadow-box" style="box-shadow:none;border:var(--bd-subtle);">flat<br>Level 0</div><div class="ds-label">No shadow<br>Rest state</div></div>
       <div class="ds-col"><div class="shadow-box" style="box-shadow:var(--shadow-xs);">xs<br>Level 1</div><div class="ds-label">Cards at rest</div></div>
@@ -1184,8 +1251,8 @@ body {
   <div class="section-divider" id="sizing"><h2>6 · Sizing</h2><div class="divider-line"></div></div>
 
   <div class="ds-section">
-    <div class="ds-section-title">Icon sizes — match adjacent text</div>
-    <div class="ds-note">Google Luminous Symbols (variable). Icons may run a notch larger than adjacent text for comfort; standalone and nav icons are ≥24px regardless. Default weight: 400; bold contexts 500–600. Never use filled icons — outline only.</div>
+    <div class="ds-section-title">Icon sizes · match adjacent text</div>
+    <div class="ds-note">Google Luminous Symbols (variable). Icons may run a notch larger than adjacent text for comfort; standalone and nav icons are ≥24px regardless. Default weight: 400; bold contexts 500–600. Never use filled icons · outline only.</div>
     <div class="ds-row" style="align-items:flex-end;gap:var(--sp-8);">
       <div class="ds-col">
         <div style="width:32px;height:32px;border-radius:50%;background:var(--primary-tint);display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--primary);">◻</div>
@@ -1237,6 +1304,33 @@ body {
   <div class="section-divider" id="brand"><h2>7 · Brand & Motion</h2><div class="divider-line"></div></div>
 
   <div class="ds-section">
+    <div class="ds-section-title">Logo &amp; app icon</div>
+    <div class="ds-note">Appa's mark: a teal check rising out of a white tile dotted with soft clouds, wordmark below. Keep clear space of at least half the tile height on every side. Minimum 24px in-app; 44px app-icon floor. Place on white or a solid surface chip, never on busy photography. Don't recolour the teal, restretch, or add shadows.</div>
+    <div class="ds-row" style="gap:var(--sp-8);align-items:flex-end;">
+      <div class="ds-col">
+        <div style="background:#fff;border:var(--bd-subtle);border-radius:var(--r-md);padding:12px 16px;">
+          <svg viewBox="0 0 240 215" width="118" height="106" role="img" aria-label="Appa logo"><rect x="22" y="52" width="160" height="108" rx="20" fill="#FFFFFF" stroke="#16181C" stroke-width="6"/><g fill="#11D2CB"><g><circle cx="94" cy="80" r="7"/><circle cx="104" cy="76" r="9"/><circle cx="114" cy="80" r="7"/><rect x="88" y="79" width="32" height="9" rx="4.5"/></g><g><circle cx="52" cy="126" r="6"/><circle cx="60" cy="122" r="8"/><circle cx="69" cy="126" r="6"/><rect x="47" y="125" width="27" height="8" rx="4"/></g><g><circle cx="140" cy="128" r="6"/><circle cx="148" cy="124" r="8"/><circle cx="157" cy="128" r="6"/><rect x="135" y="127" width="27" height="8" rx="4"/></g></g><path d="M58 112 L94 148 L214 40" fill="none" stroke="#11D2CB" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><text x="102" y="202" text-anchor="middle" font-weight="800" font-size="36" fill="#16181C" style="font-family:'Google Sans Display','Google Sans',sans-serif;letter-spacing:1px;">APPA</text></svg>
+        </div>
+        <div class="ds-label">Primary mark</div>
+      </div>
+      <div class="ds-col">
+        <div style="background:#fff;border:var(--bd-subtle);border-radius:var(--r-md);padding:12px 16px;">
+          <svg viewBox="0 0 240 215" width="118" height="106" role="img" aria-label="Appa logo monochrome"><rect x="22" y="52" width="160" height="108" rx="20" fill="#FFFFFF" stroke="#16181C" stroke-width="6"/><g fill="#16181C"><g><circle cx="94" cy="80" r="7"/><circle cx="104" cy="76" r="9"/><circle cx="114" cy="80" r="7"/><rect x="88" y="79" width="32" height="9" rx="4.5"/></g><g><circle cx="52" cy="126" r="6"/><circle cx="60" cy="122" r="8"/><circle cx="69" cy="126" r="6"/><rect x="47" y="125" width="27" height="8" rx="4"/></g><g><circle cx="140" cy="128" r="6"/><circle cx="148" cy="124" r="8"/><circle cx="157" cy="128" r="6"/><rect x="135" y="127" width="27" height="8" rx="4"/></g></g><path d="M58 112 L94 148 L214 40" fill="none" stroke="#16181C" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><text x="102" y="202" text-anchor="middle" font-weight="800" font-size="36" fill="#16181C" style="font-family:'Google Sans Display','Google Sans',sans-serif;letter-spacing:1px;">APPA</text></svg>
+        </div>
+        <div class="ds-label">Monochrome</div>
+      </div>
+      <div class="ds-col">
+        <div style="width:64px;height:64px;border-radius:16px;background:var(--gradient);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-sm);"><svg viewBox="0 0 100 100" width="42" height="42"><path d="M20 56 L42 78 L84 24" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="ds-label">App icon · 44px min</div>
+      </div>
+    </div>
+    <div class="ds-row" style="gap:var(--sp-5);margin-top:var(--sp-5);">
+      <div style="flex:1;min-width:180px;padding:var(--sp-4);background:color-mix(in srgb,var(--success) 8%,transparent);border:1px solid color-mix(in srgb,var(--success) 25%,transparent);border-radius:var(--r-md);font-size:12px;color:var(--text);line-height:1.6;"><strong style="color:var(--primary-strong);">Do</strong> · keep clear space · use on a solid chip · scale proportionally</div>
+      <div style="flex:1;min-width:180px;padding:var(--sp-4);background:color-mix(in srgb,var(--error) 8%,transparent);border:1px solid color-mix(in srgb,var(--error) 25%,transparent);border-radius:var(--r-md);font-size:12px;color:var(--text);line-height:1.6;"><strong style="color:var(--error);">Don't</strong> · stretch, recolour the teal, add shadows, or place on busy photos</div>
+    </div>
+  </div>
+
+  <div class="ds-section">
     <div class="ds-section-title">Imagery</div>
     <div class="ds-row">
       <div style="flex:1;min-width:200px;padding:var(--sp-5);background:var(--surface);border-radius:var(--r-lg);border:var(--bd-subtle);">
@@ -1245,7 +1339,7 @@ body {
       </div>
       <div style="flex:1;min-width:200px;padding:var(--sp-5);background:var(--surface);border-radius:var(--r-lg);border:var(--bd-subtle);">
         <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Illustration</div>
-        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;">Flat, rounded, character-forward. No complex gradients. <strong>Functional</strong> illustrations (empty states, onboarding) stay on-brand — teal + pink, single accent each. <strong>Celebration / reward</strong> illustrations open up to a wider palette: bright, solid colours — no dull colours — so wins feel special.</div>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;">Flat, rounded, character-forward. No complex gradients. <strong>Functional</strong> illustrations (empty states, onboarding) stay on-brand · teal + pink, single accent each. <strong>Celebration / reward</strong> illustrations open up to a wider palette: bright, solid colours · no dull colours · so wins feel special.</div>
       </div>
     </div>
   </div>
@@ -1260,8 +1354,8 @@ body {
         <tr><td><span class="code">--dur-default</span></td><td>220ms</td><td>ease-out</td><td>State transitions, tab switch, expand</td></tr>
         <tr><td><span class="code">--dur-slow</span></td><td>360ms</td><td>ease-in-out</td><td>Screen transitions, modal enter/exit</td></tr>
         <tr><td><span class="code">--dur-enter</span></td><td>480ms</td><td>ease-out</td><td>Page load, onboarding reveals</td></tr>
-        <tr><td><span class="code">--ease-spring</span></td><td>—</td><td>(.34,1.56,.64,1)</td><td>Button press, task check-off, confetti</td></tr>
-        <tr><td><span class="code">--delay-hover</span></td><td>200ms delay · in 220 · out 120</td><td>ease-out</td><td>Hover popovers / previews — delay prevents accidental triggers, fast exit</td></tr>
+        <tr><td><span class="code">--ease-spring</span></td><td>·</td><td>(.34,1.56,.64,1)</td><td>Button press, task check-off, confetti</td></tr>
+        <tr><td><span class="code">--delay-hover</span></td><td>200ms delay · in 220 · out 120</td><td>ease-out</td><td>Hover popovers / previews · delay prevents accidental triggers, fast exit</td></tr>
       </tbody>
     </table>
     <div style="margin-top:var(--sp-5);">
@@ -1273,13 +1367,13 @@ body {
         <div class="ds-col"><div class="anim-box morph" title="Shape morph"></div><div class="ds-label">Shape morph<br>Square → circle</div></div>
         <div class="ds-col"><div class="anim-box dissolve" title="Dissolve"></div><div class="ds-label">Dissolve<br>Blur out, disappear</div></div>
         <div class="ds-col">
-          <div style="width:52px;height:28px;background:var(--primary);border-radius:14px;position:relative;cursor:pointer;transition:background var(--dur-slow);" onclick="var t=this;t.style.background=t._on?'var(--primary)':'var(--primary-strong)';t._on=!t._on;t.querySelector('span').style.transform=t._on?'translateX(24px)':'translateX(0)'">
-            <span style="width:22px;height:22px;border-radius:50%;background:white;position:absolute;top:3px;left:3px;transition:transform var(--dur-slow) var(--ease-spring);display:block;"></span>
+          <div style="width:52px;height:28px;background:var(--primary);border-radius:14px;position:relative;cursor:pointer;transition:background 600ms;" onclick="var t=this;t.style.background=t._on?'var(--primary)':'var(--primary-strong)';t._on=!t._on;t.querySelector('span').style.transform=t._on?'translateX(24px)':'translateX(0)'">
+            <span style="width:22px;height:22px;border-radius:50%;background:white;position:absolute;top:3px;left:3px;transition:transform 600ms var(--ease-spring);display:block;"></span>
           </div>
           <div class="ds-label">Toggle switch</div>
         </div>
         <div class="ds-col">
-          <div style="width:48px;height:48px;border-radius:var(--r-lg);background:var(--accent);cursor:pointer;transition:transform var(--dur-slow) var(--ease-spring);" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'"></div>
+          <div style="width:48px;height:48px;border-radius:var(--r-lg);background:var(--accent);cursor:pointer;transition:transform 600ms var(--ease-spring);" onmouseenter="this.style.transform='scale(1.08)'" onmouseleave="this.style.transform='scale(1)'"></div>
           <div class="ds-label">Accent spring<br>Pink CTA</div>
         </div>
       </div>
@@ -1330,11 +1424,11 @@ body {
 
   <div class="ds-section">
     <div class="ds-section-title">Buttons</div>
-    <div class="ds-note">Default to outline buttons — coloured border, no fill. Reserve a solid fill for the single most important action per view. Filled buttons read loud; restraint keeps the UI calm.</div>
+    <div class="ds-note">Default to outline buttons · coloured border, no fill. Reserve a solid fill for the single most important action per view. Filled buttons read loud; restraint keeps the UI calm.</div>
     <div style="display:flex;flex-direction:column;gap:var(--sp-6);">
 
       <div>
-        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Default — outline (most buttons)</div>
+        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Default · outline (most buttons)</div>
         <div class="ds-row" style="align-items:center;">
           <button class="btn btn-outline">Back</button>
           <button class="btn btn-outline btn-sm">See all →</button>
@@ -1343,7 +1437,7 @@ body {
       </div>
 
       <div>
-        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Primary — solid teal (the one key action per view)</div>
+        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Primary · solid teal (the one key action per view)</div>
         <div class="ds-row" style="align-items:center;">
           <button class="btn btn-primary">Pick me up</button>
           <button class="btn btn-primary btn-sm">Join</button>
@@ -1353,7 +1447,7 @@ body {
       </div>
 
       <div>
-        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Accent — pink (rare · one per view max)</div>
+        <div style="font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:var(--sp-3);">Accent · pink (rare · one per view max)</div>
         <div class="ds-row" style="align-items:center;">
           <button class="btn btn-accent">Start now</button>
           <div class="ds-label" style="text-align:left;">r-pill · --accent fill · used sparingly</div>
@@ -1414,7 +1508,7 @@ body {
 
   <div class="ds-section">
     <div class="ds-section-title">Form elements & tags</div>
-    <div class="ds-note">Borders at rest are a dark neutral — not coloured — so forms stay calm and clear. Teal appears only on focus. If you do tint a border (e.g. on a busy page), use a lighter shade, never full-saturation teal or pink. Topic tags are outline-only; status tags keep a light tint fill so the colour still reads at a glance.</div>
+    <div class="ds-note">Borders at rest are a dark neutral · not coloured · so forms stay calm and clear. Teal appears only on focus. If you do tint a border (e.g. on a busy page), use a lighter shade, never full-saturation teal or pink. Topic tags are outline-only; status tags keep a light tint fill so the colour still reads at a glance.</div>
     <div style="max-width:340px;display:flex;flex-direction:column;gap:12px;">
       <input class="input" type="text" placeholder="Search spaces…">
       <input class="input" type="text" value="Focused input" style="border:1.5px solid var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 15%,transparent);" readonly>
@@ -1440,33 +1534,320 @@ body {
     <div class="ds-label" style="text-align:left;margin-top:8px;">Sent: 16 16 4 16 · --primary-tint bg · dark text · Received: 16 16 16 4 · surface-raised</div>
   </div>
 
+  <div class="ds-section">
+    <div class="ds-section-title">Selection controls</div>
+    <div class="ds-note">Switch, checkbox, radio · each shown off / on. Off uses a neutral border; on fills with teal. The 22px control sits inside a 44px tappable row. Spring on the switch knob; a quick ease-out elsewhere.</div>
+    <div class="ds-row" style="gap:var(--sp-8);align-items:flex-start;">
+      <div class="ds-col" style="align-items:flex-start;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><div class="switch"></div><span style="font-size:13px;color:var(--text-muted);">Off</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="switch on"></div><span style="font-size:13px;color:var(--text);">On</span></div>
+        <div class="ds-label" style="text-align:left;">Switch</div>
+      </div>
+      <div class="ds-col" style="align-items:flex-start;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><div class="check"></div><span style="font-size:13px;color:var(--text-muted);">Off</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="check on">✓</div><span style="font-size:13px;color:var(--text);">On</span></div>
+        <div class="ds-label" style="text-align:left;">Checkbox · r 6px</div>
+      </div>
+      <div class="ds-col" style="align-items:flex-start;gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;"><div class="radio"></div><span style="font-size:13px;color:var(--text-muted);">Off</span></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div class="radio on"></div><span style="font-size:13px;color:var(--text);">On</span></div>
+        <div class="ds-label" style="text-align:left;">Radio</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Progress</div>
+    <div class="ds-note">Calm, rounded progress on a teal-tint track. Use for onboarding steps, sync, and gentle goal completion · never as a pressure gauge.</div>
+    <div style="max-width:360px;display:flex;flex-direction:column;gap:var(--sp-5);">
+      <div><div class="progress"><i style="width:25%"></i></div><div class="ds-label" style="text-align:left;margin-top:6px;">25% · onboarding step 1 of 4</div></div>
+      <div><div class="progress"><i style="width:60%"></i></div><div class="ds-label" style="text-align:left;margin-top:6px;">60%</div></div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:6px;"><span>Today's gentle goal</span><span>3 of 4</span></div>
+        <div class="progress"><i style="width:75%"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Tabs &amp; segmented control</div>
+    <div class="ds-note">Segmented control for 2–3 mutually exclusive views (pill, teal-tint track). Underline tabs for in-page section switching. Active = teal; the indicator moves on --dur-default.</div>
+    <div style="display:flex;flex-direction:column;gap:var(--sp-6);">
+      <div class="segmented">
+        <button class="on">Feed</button>
+        <button>Spaces</button>
+        <button>You</button>
+      </div>
+      <div class="tabs" style="max-width:360px;">
+        <button class="on">Today</button>
+        <button>Week</button>
+        <button>All time</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Modal &amp; bottom sheet</div>
+    <div class="ds-note">Bottom sheet is the mobile default: 24px top-only radius, a small grab handle, content slides up over a dimmed --overlay scrim (z-30). Centre modals are reserved for short confirmations. Tap the scrim or swipe down to dismiss.</div>
+    <div style="position:relative;height:300px;border-radius:var(--r-lg);overflow:hidden;border:var(--bd-subtle);background:var(--bg);">
+      <div style="padding:var(--sp-5);opacity:0.55;">
+        <div class="skeleton" style="height:16px;width:60%;margin-bottom:10px;"></div>
+        <div class="skeleton" style="height:12px;width:90%;margin-bottom:6px;"></div>
+        <div class="skeleton" style="height:12px;width:80%;"></div>
+      </div>
+      <div class="scrim">
+        <div style="background:var(--surface-raised);border-radius:24px 24px 0 0;padding:var(--sp-5) var(--sp-6) var(--sp-6);width:100%;box-shadow:var(--shadow-xl);">
+          <div style="width:36px;height:4px;border-radius:var(--r-pill);background:var(--border);margin:0 auto var(--sp-5);"></div>
+          <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--text);margin-bottom:6px;">Add a quick note?</div>
+          <div style="font-size:14px;color:var(--text-muted);margin-bottom:var(--sp-5);">No pressure · jot anything, even one word.</div>
+          <input class="input" placeholder="Type here…" style="margin-bottom:var(--sp-4);">
+          <div style="display:flex;gap:10px;"><button class="btn btn-primary" style="flex:1;">Save</button><button class="btn btn-outline">Later</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-label" style="text-align:left;margin-top:8px;">Sheet: 24px top radius · grab handle · --overlay scrim + blur · z-30 · shadow-xl</div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Toast / snackbar</div>
+    <div class="ds-note">Brief, calm confirmation at z-40. Auto-dismiss ~3s, slides up and fades. One line, optional single action (e.g. Undo). Never stack more than one.</div>
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+      <div class="toast">Note saved <span class="toast-action">Undo</span></div>
+      <div class="toast"><span style="color:var(--success);">✓</span> Marked done for today</div>
+      <div class="toast">Synced just now</div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Nudge · tip · coach-mark</div>
+    <div class="ds-note">Tips and nudges use periwinkle (--info), never red urgency. Coach-marks point at a feature on first use; inline nudges sit in-flow. They appear with the hover-intent delay and dismiss fast. Tone: invite, don't pressure.</div>
+    <div class="ds-row" style="gap:var(--sp-8);align-items:flex-start;">
+      <div class="ds-col" style="align-items:flex-start;">
+        <div class="coachmark">Draw a circle anywhere to drop a quick Note ✨</div>
+        <div class="ds-label" style="text-align:left;margin-top:14px;">Coach-mark · points at target</div>
+      </div>
+      <div class="ds-col" style="align-items:flex-start;max-width:300px;">
+        <div style="display:flex;gap:10px;align-items:flex-start;background:color-mix(in srgb,var(--info) 10%,transparent);border:1px solid color-mix(in srgb,var(--info) 25%,transparent);border-radius:var(--r-md);padding:12px 14px;">
+          <span style="font-size:16px;">💡</span>
+          <div style="font-size:13px;color:var(--text);line-height:1.5;">Stuck? Try the 2-minute version. You can always stop after.</div>
+        </div>
+        <div class="ds-label" style="text-align:left;margin-top:10px;">Inline nudge · in-flow tip</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Empty states</div>
+    <div class="ds-note">Empty is an opportunity, not a dead end. Friendly illustration or emoji, one warm line, a single gentle action. Never guilt the user for nothing being here yet.</div>
+    <div class="ds-row" style="gap:var(--sp-5);">
+      <div class="card card-padding" style="flex:1;min-width:220px;text-align:center;">
+        <div style="font-size:40px;margin-bottom:10px;">🌱</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">Nothing here yet</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:var(--sp-5);">Your first small step starts a space.</div>
+        <button class="btn btn-primary btn-sm">Start one</button>
+      </div>
+      <div class="card card-padding" style="flex:1;min-width:220px;text-align:center;">
+        <div style="font-size:40px;margin-bottom:10px;">🎉</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">All caught up</div>
+        <div style="font-size:13px;color:var(--text-muted);">Nothing due. Go enjoy the rest of your day.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Skeleton / loading</div>
+    <div class="ds-note">Prefer skeletons over spinners · a calm grey shimmer feels gentler than a spinning wait, and it respects prefers-reduced-motion. Match the shape of the content that's coming. Spinner is reserved for in-button actions.</div>
+    <div class="card card-padding" style="max-width:340px;">
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:14px;">
+        <div class="skeleton" style="width:40px;height:40px;border-radius:50%;"></div>
+        <div style="flex:1;">
+          <div class="skeleton" style="height:13px;width:50%;margin-bottom:7px;"></div>
+          <div class="skeleton" style="height:11px;width:30%;"></div>
+        </div>
+      </div>
+      <div class="skeleton" style="height:100px;width:100%;border-radius:var(--r-md);margin-bottom:12px;"></div>
+      <div class="skeleton" style="height:12px;width:95%;margin-bottom:7px;"></div>
+      <div class="skeleton" style="height:12px;width:75%;"></div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Badges · list items · avatar groups</div>
+    <div class="ds-note">Small building blocks for feeds and Community. Count badge = pink, for unread / notifications only. List row = leading icon · title + subtitle · trailing chevron. Avatar group overlaps at -10px with a surface ring; cap with a "+n".</div>
+    <div style="display:flex;flex-direction:column;gap:var(--sp-6);">
+
+      <div class="ds-row" style="align-items:center;gap:var(--sp-6);">
+        <div style="position:relative;display:inline-block;"><button class="btn-icon">🔔</button><span class="count-badge" style="position:absolute;top:-4px;right:-4px;">3</span></div>
+        <span class="count-badge">12</span>
+        <span class="count-badge" style="background:var(--primary);">New</span>
+        <div class="ds-label" style="text-align:left;">Count / notification badges</div>
+      </div>
+
+      <div style="background:var(--surface);border-radius:var(--r-lg);border:var(--bd-subtle);overflow:hidden;max-width:360px;">
+        <div class="list-item" style="border-bottom:var(--bd-subtle);">
+          <div class="li-icon">🍵</div>
+          <div class="li-body"><div class="li-title">Iced matcha as my green thing</div><div class="li-sub">DeepRiver · 2h</div></div>
+          <span style="color:var(--text-muted);">›</span>
+        </div>
+        <div class="list-item">
+          <div class="li-icon" style="background:var(--accent-tint);">🔥</div>
+          <div class="li-body"><div class="li-title">Avoidance, noticed gently</div><div class="li-sub">You · just now</div></div>
+          <span style="color:var(--text-muted);">›</span>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="avatar-group">
+          <div class="avatar" style="width:36px;height:36px;font-size:12px;">A</div>
+          <div class="avatar" style="width:36px;height:36px;font-size:12px;background:var(--accent-tint);color:var(--accent-text);">R</div>
+          <div class="avatar" style="width:36px;height:36px;font-size:12px;">M</div>
+          <div class="avatar" style="width:36px;height:36px;font-size:11px;background:var(--primary);color:#fff;">+5</div>
+        </div>
+        <span style="font-size:13px;color:var(--text-muted);">8 people in this space</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Dark-mode component previews</div>
+    <div class="ds-note">Spot-check of key components on pure black, confirming tints and tokens hold up (the whole doc also flips via the ☀ / ☾ toggle). Note the sent chat bubble uses --primary-tint #06303C · a deep teal · with off-white text.</div>
+    <div data-theme="dark" style="background:var(--bg);border-radius:var(--r-lg);padding:var(--sp-6);border:1px solid #1E3640;display:flex;flex-direction:column;gap:var(--sp-5);">
+      <div class="ds-row" style="align-items:center;gap:12px;">
+        <button class="btn btn-outline">Back</button>
+        <button class="btn btn-primary">Pick me up</button>
+        <span class="tag tag-primary">p-perfectionist ★</span>
+        <span class="tag tag-accent">Avoidance 🔥</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;max-width:320px;">
+        <div style="display:flex;justify-content:flex-end;"><div class="bubble-out">What's a small step right now?</div></div>
+        <div style="display:flex;justify-content:flex-start;"><div class="bubble-in">Just open the file. Nothing else.</div></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:center;">
+        <div class="switch on"></div>
+        <div class="progress" style="flex:1;"><i style="width:60%"></i></div>
+        <span class="count-badge">3</span>
+      </div>
+    </div>
+  </div>
+
   <!-- =============================================
-       9. CSS TOKENS
+       9. CONTENT & UX WRITING
        ============================================= -->
-  <div class="section-divider" id="tokens"><h2>9 · CSS Tokens</h2><div class="divider-line"></div></div>
+  <div class="section-divider" id="writing"><h2>9 · Content &amp; UX Writing</h2><div class="divider-line"></div></div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Voice in practice</div>
+    <div class="ds-note">Appa's edge is language. The rule: name the feeling, shrink the task, hand back control. Short, warm, never guilt / shame / urgency. Mirror the user's own words.</div>
+    <table class="table" style="background:var(--surface);border-radius:var(--r-lg);overflow:hidden;border:var(--bd-subtle);">
+      <thead><tr><th>Context</th><th style="color:var(--error);">Instead of</th><th style="color:var(--primary-strong);">Write</th></tr></thead>
+      <tbody>
+        <tr><td>Error</td><td>Something went wrong. Try again.</td><td>That didn't go through · no stress, give it another tap.</td></tr>
+        <tr><td>Empty state</td><td>No tasks found.</td><td>Nothing here yet. Your first small step starts a space.</td></tr>
+        <tr><td>Overdue</td><td>You missed 3 deadlines!</td><td>3 things are waiting whenever you're ready.</td></tr>
+        <tr><td>Nudge</td><td>Don't break your progress!</td><td>Want to do the 2-minute version today?</td></tr>
+        <tr><td>Celebration</td><td>Task completed.</td><td>Done. That was easy · nice one. 🎉</td></tr>
+        <tr><td>Primary button</td><td>Submit</td><td>Pick me up · Start small · I'll try</td></tr>
+        <tr><td>Dismiss</td><td>Cancel</td><td>Maybe later</td></tr>
+      </tbody>
+    </table>
+    <div class="tone-grid" style="margin-top:var(--sp-5);">
+      <div class="tone-card tone-do">
+        <div class="tone-label">✓ Words we use</div>
+        <div style="color:var(--primary-strong);line-height:1.9;">small step · gently · whenever you're ready · no pressure · try · one thing · breathe · nice one</div>
+      </div>
+      <div class="tone-card tone-dont">
+        <div class="tone-label">✗ Words we avoid</div>
+        <div style="color:var(--accent-text);line-height:1.9;">must · should · failed · don't · deadline · hurry · lazy · finally · behind</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Emoji usage</div>
+    <div class="ds-note">Emoji add warmth · but sparingly. At most one per message or label, never mid-sentence as decoration. Use them for emotion and celebration, not for status (status uses semantic colour + words).</div>
+    <div class="tone-grid">
+      <div class="tone-card tone-do">
+        <div class="tone-label">✓ Do</div>
+        <div style="color:var(--primary-strong);line-height:1.9;">🎉 celebrations · 🌱 growth / empty states · 💡 a tip · one trailing emoji on a warm line</div>
+      </div>
+      <div class="tone-card tone-dont">
+        <div class="tone-label">✗ Don't</div>
+        <div style="color:var(--accent-text);line-height:1.9;">😰 fear / urgency · 🔥 to mean "you're behind" · stacking 3+ · emoji as the only label · replacing semantic colours</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================
+       10. DATA VISUALIZATION
+       ============================================= -->
+  <div class="section-divider" id="dataviz"><h2>10 · Data Visualization</h2><div class="divider-line"></div></div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Charts · Insights</div>
+    <div class="ds-note">Insights should feel encouraging, not like a report card. Teal = "you", periwinkle + pink = categories / comparison, soft tint fills, rounded ends, generous gridless space. Avoid red except for genuine overdue. <strong>Sample data shown · confirm what Insights actually tracks.</strong></div>
+    <div class="ds-row" style="gap:var(--sp-5);align-items:stretch;">
+
+      <div class="card card-padding" style="flex:1;min-width:240px;">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;">Small steps this week</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:var(--sp-5);">14 total · gentle upward drift</div>
+        <div style="display:flex;align-items:flex-end;gap:8px;height:96px;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;"><div style="width:100%;height:30%;background:var(--primary-tint);border-radius:var(--r-sm) var(--r-sm) 0 0;"></div><span style="font-size:10px;color:var(--text-muted);">M</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;"><div style="width:100%;height:55%;background:var(--primary-tint);border-radius:var(--r-sm) var(--r-sm) 0 0;"></div><span style="font-size:10px;color:var(--text-muted);">T</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;"><div style="width:100%;height:45%;background:var(--primary-tint);border-radius:var(--r-sm) var(--r-sm) 0 0;"></div><span style="font-size:10px;color:var(--text-muted);">W</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;"><div style="width:100%;height:70%;background:var(--primary);border-radius:var(--r-sm) var(--r-sm) 0 0;"></div><span style="font-size:10px;color:var(--text);">T</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;"><div style="width:100%;height:85%;background:var(--primary);border-radius:var(--r-sm) var(--r-sm) 0 0;"></div><span style="font-size:10px;color:var(--text);">F</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;"><div style="width:100%;height:40%;background:var(--primary-tint);border-radius:var(--r-sm) var(--r-sm) 0 0;"></div><span style="font-size:10px;color:var(--text-muted);">S</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;"><div style="width:100%;height:60%;background:var(--primary-tint);border-radius:var(--r-sm) var(--r-sm) 0 0;"></div><span style="font-size:10px;color:var(--text-muted);">S</span></div>
+        </div>
+      </div>
+
+      <div class="card card-padding" style="flex:1;min-width:240px;">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:var(--sp-5);">Procrastination types</div>
+        <div style="display:flex;align-items:center;gap:var(--sp-5);">
+          <div style="width:96px;height:96px;border-radius:50%;background:conic-gradient(var(--primary) 0 45%,var(--accent) 45% 70%,var(--info) 70% 100%);position:relative;flex-shrink:0;">
+            <div style="position:absolute;inset:18px;background:var(--surface);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--text);">3</div>
+          </div>
+          <div style="font-size:12px;line-height:2;">
+            <div><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--primary);"></span> Perfectionist 45%</div>
+            <div><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--accent);"></span> Avoidant 25%</div>
+            <div><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:var(--info);"></span> Overwhelmed 30%</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="ds-label" style="text-align:left;margin-top:10px;">Palette: teal = you · pink + periwinkle = categories · tint fills · rounded ends · no hard gridlines</div>
+  </div>
+
+  <!-- =============================================
+       11. CSS TOKENS
+       ============================================= -->
+  <div class="section-divider" id="tokens"><h2>11 · CSS Tokens</h2><div class="divider-line"></div></div>
 
   <div class="ds-section">
     <div class="ds-section-title">Copy-paste token reference</div>
-    <div class="token-block"><span class="cm">/* APPA DESIGN SYSTEM — CSS TOKENS v2.0 */</span>
+    <div class="token-block"><span class="cm">/* APPA DESIGN SYSTEM · CSS TOKENS v2.0 */</span>
 <span class="cm">/* Source: panthini07.github.io/appa-design-system */</span>
 
 <span class="sc">:root {</span>
-  <span class="cm">/* Primary — teal */</span>
+  <span class="cm">/* Primary · teal */</span>
   <span class="tk">--primary</span>:        <span class="vl">#11D2CB</span>;  <span class="cm">/* Actions, nav, brand */</span>
   <span class="tk">--primary-bright</span>: <span class="vl">#5FE6DF</span>;  <span class="cm">/* Highlights, light fills */</span>
   <span class="tk">--primary-strong</span>: <span class="vl">#07BDB5</span>;  <span class="cm">/* Hover / pressed */</span>
   <span class="tk">--primary-tint</span>:   <span class="vl">#DDF9F7</span>;  <span class="cm">/* Ambient surfaces, sent bubble */</span>
 
-  <span class="cm">/* Accent — pink (1 per view max) */</span>
+  <span class="cm">/* Accent · pink (1 per view max) */</span>
   <span class="tk">--accent</span>:         <span class="vl">#FF4D97</span>;
   <span class="tk">--accent-text</span>:    <span class="vl">#E0357F</span>;
   <span class="tk">--accent-tint</span>:    <span class="vl">#FFE3EF</span>;
 
-  <span class="cm">/* Neutrals — cool luminous */</span>
+  <span class="cm">/* Neutrals · cool luminous */</span>
   <span class="tk">--bg</span>:             <span class="vl">#F6F9FF</span>;
   <span class="tk">--surface</span>:        <span class="vl">#FCFDFF</span>;
   <span class="tk">--surface-raised</span>: <span class="vl">#FFFFFF</span>;
   <span class="tk">--border</span>:         <span class="vl">#E6EAF2</span>;
+  <span class="tk">--overlay</span>:        <span class="vl">rgba(22,24,28,.45)</span>;  <span class="cm">/* modal / sheet scrim */</span>
 
   <span class="cm">/* Text */</span>
   <span class="tk">--text</span>:           <span class="vl">#16181C</span>;
@@ -1485,7 +1866,7 @@ body {
   <span class="tk">--font-mono</span>:    <span class="vl">'Google Sans Mono', 'Roboto Mono', monospace</span>;
   <span class="cm">/* type scale (applied via CSS): hero 28 · title 24 · section 20 · body 16 · sm 15 · caption 13 · micro 11 */</span>
 
-  <span class="cm">/* Spacing — 4px base */</span>
+  <span class="cm">/* Spacing · 4px base */</span>
   <span class="tk">--sp-1</span>: 4px;  <span class="tk">--sp-2</span>: 8px;  <span class="tk">--sp-3</span>: 12px; <span class="tk">--sp-4</span>: 16px;
   <span class="tk">--sp-5</span>: 20px; <span class="tk">--sp-6</span>: 24px; <span class="tk">--sp-8</span>: 32px; <span class="tk">--sp-10</span>: 40px; <span class="tk">--sp-12</span>: 48px;
 
@@ -1499,7 +1880,7 @@ body {
   <span class="tk">--bd-strong</span>:   <span class="vl">1.5px solid var(--primary)</span>;
   <span class="tk">--bd-selected</span>: <span class="vl">2px solid var(--primary)</span>;
 
-  <span class="cm">/* Shadows — teal-tinted (light) */</span>
+  <span class="cm">/* Shadows · teal-tinted (light) */</span>
   <span class="tk">--shadow-xs</span>: <span class="vl">0 1px 2px rgba(11,189,181,.06)</span>;
   <span class="tk">--shadow-sm</span>: <span class="vl">0 2px 8px rgba(11,189,181,.10), 0 1px 2px rgba(11,189,181,.06)</span>;
   <span class="tk">--shadow-md</span>: <span class="vl">0 4px 16px rgba(11,189,181,.14), 0 2px 4px rgba(11,189,181,.06)</span>;
@@ -1517,7 +1898,7 @@ body {
   <span class="tk">--ease-spring</span>: <span class="vl">cubic-bezier(.34,1.56,.64,1)</span>;
 <span class="sc">}</span>
 
-<span class="cm">/* Dark mode — rain-glass (cyan + magenta on black) */</span>
+<span class="cm">/* Dark mode · rain-glass (cyan + magenta on black) */</span>
 <span class="sc">[data-theme="dark"] {</span>
   <span class="tk">--primary</span>: <span class="vl">#0B9FBD</span>; <span class="tk">--primary-bright</span>: <span class="vl">#3FC4DC</span>;
   <span class="tk">--primary-strong</span>: <span class="vl">#025067</span>; <span class="tk">--primary-tint</span>: <span class="vl">#06303C</span>;
@@ -1526,8 +1907,64 @@ body {
   <span class="tk">--border</span>: <span class="vl">#1E3640</span>; <span class="tk">--text</span>: <span class="vl">#EAF6F8</span>; <span class="tk">--text-muted</span>: <span class="vl">#8FA9B2</span>;
   <span class="tk">--success</span>: <span class="vl">#45E0A0</span>; <span class="tk">--warning</span>: <span class="vl">#FFA552</span>; <span class="tk">--error</span>: <span class="vl">#FF7A7E</span>; <span class="tk">--info</span>: <span class="vl">#A6AEFF</span>;
   <span class="tk">--gradient</span>: <span class="vl">linear-gradient(90deg,#0B9FBD,#3FC4DC,#6C0E42,#B31B6F)</span>;
+  <span class="tk">--overlay</span>: <span class="vl">rgba(0,0,0,.6)</span>;
   <span class="cm">/* shadows switch to pure black: rgba(0,0,0,.4) → rgba(0,0,0,.7) */</span>
 <span class="sc">}</span></div>
+  </div>
+
+  <!-- =============================================
+       12. RULES FOR DIY
+       ============================================= -->
+  <div class="section-divider" id="diy"><h2>12 · Rules for DIY</h2><div class="divider-line"></div></div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">What stays from our current design</div>
+    <div class="ds-note">Conventions proven in DIY that we keep, even where they sit outside the core token system.</div>
+    <div style="display:flex;gap:12px;margin-bottom:var(--sp-5);flex-wrap:wrap;">
+      <div class="ds-col"><div style="width:56px;height:56px;border-radius:var(--r-md);background:#FFD93D;border:var(--bd-subtle);"></div><div class="ds-label">#FFD93D</div></div>
+      <div class="ds-col"><div style="width:56px;height:56px;border-radius:var(--r-md);background:#FF6B9D;border:var(--bd-subtle);"></div><div class="ds-label">#FF6B9D</div></div>
+      <div class="ds-col"><div style="width:56px;height:56px;border-radius:var(--r-md);background:#C77DFF;border:var(--bd-subtle);"></div><div class="ds-label">#C77DFF</div></div>
+    </div>
+    <ul style="padding-left:18px;font-size:14px;color:var(--text);line-height:2;">
+      <li>Warm celebration colours (yellow #FFD93D, pink #FF6B9D, purple #C77DFF) · not in the design system but they work</li>
+      <li>Category colours for task pills · not in the design system, keep as is</li>
+      <li>Emotion dot colours · keep as is</li>
+      <li>No horizontal lines rule · still applies</li>
+      <li>No arrows on buttons · still applies</li>
+      <li>First-person copy · still applies</li>
+      <li>Footer pattern · still applies</li>
+    </ul>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Hard rules</div>
+    <div class="tone-grid">
+      <div class="tone-card tone-do">
+        <div class="tone-label">Always</div>
+        <ul style="padding-left:16px;color:var(--primary-strong);line-height:2;">
+          <li>White backgrounds on all tiles · colour on the border only, never fill</li>
+          <li>First-person copy</li>
+          <li>Keep the footer pattern</li>
+        </ul>
+      </div>
+      <div class="tone-card tone-dont">
+        <div class="tone-label">Never</div>
+        <ul style="padding-left:16px;color:var(--accent-text);line-height:2;">
+          <li>Horizontal lines or dividers anywhere</li>
+          <li>Arrows on any buttons</li>
+          <li>Filled tile backgrounds</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-section">
+    <div class="ds-section-title">Flow &amp; technical</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="border:var(--bd-default);border-radius:var(--r-md);padding:var(--sp-4) var(--sp-5);"><div style="font-size:14px;font-weight:500;color:var(--text);">"Working on [task]" pill</div><div style="font-size:12px;color:var(--text-muted);margin-top:2px;">On all screens from NS Reset onwards.</div></div>
+      <div style="border:var(--bd-default);border-radius:var(--r-md);padding:var(--sp-4) var(--sp-5);"><div style="font-size:14px;font-weight:500;color:var(--text);">In-flow navigation</div><div style="font-family:var(--font-mono);font-size:12px;color:var(--primary-strong);margin-top:3px;">window.parent.postMessage({type:'appaNext'},'*')</div></div>
+      <div style="border:var(--bd-default);border-radius:var(--r-md);padding:var(--sp-4) var(--sp-5);"><div style="font-size:14px;font-weight:500;color:var(--text);">Phone frame height</div><div style="font-family:var(--font-mono);font-size:12px;color:var(--primary-strong);margin-top:3px;">height: 680px</div></div>
+    </div>
   </div>
 
   <!-- FOOTER -->
